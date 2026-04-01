@@ -17,7 +17,7 @@ O sistema está a ser construído seguindo uma **Arquitetura em Camadas** e util
 * **Segurança:** Autenticação baseada em Token (JWT) e senhas criptografadas
 
 ## 🚀 Funcionalidades Principais
-* **Gestão de Clientes:** Cadastro e controlo de clientes (com validação de CPF e E-mail).
+* **Gestão de Clientes:** Cadastro e controle de clientes (com validação de CPF e E-mail).
 * **Gestão de Produtos:** Controlo de estoque e preços.
 * **Registo de Vendas:** Cálculo automático de valores e baixa de estoque.
 * **Autenticação e Perfis:** Controlo de acesso (ADMIN e FUNCIONARIO).
