@@ -4,13 +4,14 @@
 Este projeto consiste no desenvolvimento de um Sistema de Gestão Comercial (SGC) aplicado a um contexto real de comércio eletrónico. 
 
 O sistema foi projetado para atender às necessidades da **The Line**, uma empresa B2C especializada na venda de roupas e acessórios de moda para todo o Brasil. O objetivo principal da plataforma é oferecer uma gestão eficiente integrando as áreas de:
+
 * **Diretoria:** Visão estratégica e relatórios de vendas.
 * **Catálogo e Produtos:** Gestão de estoque, preços e cadastro de peças.
 * **Vendas:** Registo de pedidos e atualização automática de estoque.
 * **Marketing:** Acesso aos dados de clientes para campanhas promocionais.
 
 ## ⚙️ Tecnologias e Arquitetura
-O sistema está a ser construído seguindo uma **Arquitetura em Camadas** e utiliza as seguintes tecnologias:
+O sistema está sendo construído seguindo uma **Arquitetura em Camadas** e utiliza as seguintes tecnologias:
 * **Interface Web:** Django (Python)
 * **Comunicação:** API REST (retornando JSON)
 * **Banco de Dados:** Relacional (SQL)
