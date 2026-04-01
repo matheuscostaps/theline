@@ -26,6 +26,6 @@ O sistema está a ser construído seguindo uma **Arquitetura em Camadas** e util
 ## 👥 Equipe
 Projeto desenvolvido por:
 * Matheus Costa Pessanha - [matheuscostaps](https://github.com/matheuscostaps)
-* Tais Doring - [TaisDF](https://github.com/TaisDF)
+* Tais Döring - [TaisDF](https://github.com/TaisDF)
 * Geovana Rodrigues - [geovanards](https://github.com/geovanards)
 * Alysson Kennedy - [AlyssonKennedy744](https://github.com/AlyssonKennedy744)
