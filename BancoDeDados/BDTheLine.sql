@@ -25,7 +25,8 @@ CREATE TABLE produtos (
     nome VARCHAR(100) NOT NULL,
     descricao TEXT,
     preco DECIMAL(10, 2) NOT NULL CHECK (preco >= 0),
-    quantidade_estoque INT NOT NULL DEFAULT 0
+    quantidade_estoque INT NOT NULL DEFAULT 0,
+    estoque_minimo INT DEFAULT 5
 );
 
 -- 4. Criação da tabela de Vendas
