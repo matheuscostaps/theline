@@ -79,10 +79,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'theline',
-        'USER': 'seu_usuario_do_mysql', # Geralmente 'root'
-        'PASSWORD': 'sua_senha_do_mysql',
+        'USER': 'root',
+        'PASSWORD': 'ceub123456',
         'HOST': '127.0.0.1',
-        'PORT': '5500',
+        'PORT': '3306',
     }
 }
 
