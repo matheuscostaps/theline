@@ -24,6 +24,11 @@ O sistema está sendo construído seguindo uma **Arquitetura em Camadas** e util
 * **Autenticação e Perfis:** Controlo de acesso (ADMIN e FUNCIONARIO).
 * **Relatórios:** Gráficos e dados de vendas por período e por cliente.
 
+## 📦 Extensões Utilizadas
+- Python
+- Python Debugger
+- SQLite Viewer
+  
 ## 👥 Equipe
 Projeto desenvolvido por:
 * Matheus Costa Pessanha - [matheuscostaps](https://github.com/matheuscostaps)
