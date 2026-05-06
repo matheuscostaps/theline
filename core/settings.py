@@ -78,10 +78,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'theline',
-        'USER': 'seu_usuario_do_mysql', # Geralmente 'root'
-        'PASSWORD': 'sua_senha_do_mysql',
+        'USER': 'root',    # Usuário padrão do XAMPP
+        'PASSWORD': '',    # XAMPP geralmente não tem senha. Se o seu tiver, coloque aqui.
         'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PORT': '5500',
     }
 }
 
