@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'theline',
-        'USER': 'root',    # Usuário padrão do XAMPP
-        'PASSWORD': '',    # XAMPP geralmente não tem senha. Se o seu tiver, coloque aqui.
-        'HOST': '127.0.0.1',
-        'PORT': '5500',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
