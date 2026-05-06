@@ -1,12 +1,17 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from produtos.views import ProdutoViewSet # Aqui mudamos de .views para produtos.views
+
+from clientes.views import ClienteViewSet, VendaViewSet
+from produtos.views import ProdutoViewSet 
 
 router = DefaultRouter()
+
+router.register(r'clientes', ClienteViewSet)
 router.register(r'produtos', ProdutoViewSet)
+router.register(r'vendas', VendaViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)), # Suas rotas ficarão em /api/produtos/
+    path('api/', include(router.urls)),
 ]
