@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'clientes',
     'produtos',
+    'vendas',
 ]
 
 MIDDLEWARE = [
@@ -77,12 +78,8 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'theline',
-        'USER': 'root',
-        'PASSWORD': 'ceub123456',
-        'HOST': '127.0.0.1',
-        'PORT': '5500',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
