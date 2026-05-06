@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'clientes',
+    'produtos',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ DATABASES = {
         'USER': 'seu_usuario_do_mysql', # Geralmente 'root'
         'PASSWORD': 'sua_senha_do_mysql',
         'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PORT': '5500',
     }
 }
 
