@@ -80,9 +80,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'theline',
         'USER': 'root',    # Usuário padrão do XAMPP
-        'PASSWORD': '',    # XAMPP geralmente não tem senha. Se o seu tiver, coloque aqui.
+        'PASSWORD': 'ceub123456',    # XAMPP geralmente não tem senha. Se o seu tiver, coloque aqui.
         'HOST': '127.0.0.1',
-        'PORT': '5500',
+        'PORT': '3306',
     }
 }
 
