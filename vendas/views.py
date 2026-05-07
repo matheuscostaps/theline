@@ -1,6 +1,9 @@
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from .models import Venda
 from .serializers import VendaSerializer
+from django.db.models import Sum, Avg, Count
+from rest_framework.response import Response
 
 class VendaViewSet(viewsets.ModelViewSet):
     queryset = Venda.objects.all()
