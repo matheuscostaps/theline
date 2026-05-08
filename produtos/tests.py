@@ -10,7 +10,7 @@ class ProdutoTests(APITestCase):
 
     def setUp(self):
         self.produto = Produto.objects.create(
-            nome="Teclado Mecânico",
+            nome="Pijama de Poney",
             preco=250.00,
             quantidade_estoque=10
         )

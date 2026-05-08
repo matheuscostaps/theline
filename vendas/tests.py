@@ -11,7 +11,7 @@ class VendaViewSetTests(APITestCase):
     def setUp(self):
         # Criando dados básicos para os testes
         self.cliente = Cliente.objects.create(nome="João Silva")
-        self.produto = Produto.objects.create(nome="Teclado", preco=100.00)
+        self.produto = Produto.objects.create(nome="Pijama de Poney", preco=100.00)
         
         # Criando uma venda inicial
         self.venda = Venda.objects.create(
@@ -25,7 +25,7 @@ class VendaViewSetTests(APITestCase):
             preco_unitario=Decimal('150.00')
         )
         
-        self.url_list = reverse('venda-list')  # Ajuste conforme seu router
+        self.url_list = reverse('venda-list')  
         self.url_relatorio = reverse('venda-relatorio')
 
     def test_list_vendas(self):
@@ -43,12 +43,11 @@ class VendaViewSetTests(APITestCase):
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
-        # Faturamento esperado: 150 + 50 = 200
-        self.assertEqual(response.data['faturamento_total'], Decimal('200.00'))
-        # Ticket médio esperado: 200 / 2 = 100
-        self.assertEqual(response.data['ticket_medio'], Decimal('100.00'))
+       # Faturamento esperado: 150 + 50 = 200
+        self.assertEqual(response.data['indicadores']['faturamento_total'], Decimal('200.00'))   
+        self.assertEqual(response.data['indicadores']['ticket_medio'], Decimal('100.00')) 
         # Quantidade esperada: 2
-        self.assertEqual(response.data['quantidade_vendas'], 2)
+        self.assertEqual(response.data['indicadores']['quantidade_vendas'], 2) 
 
     def test_relatorio_vazio(self):
         """Testa o comportamento do relatório quando não existem vendas"""
@@ -57,9 +56,9 @@ class VendaViewSetTests(APITestCase):
         response = self.client.get(self.url_relatorio)
         
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['faturamento_total'], 0)
-        self.assertEqual(response.data['ticket_medio'], 0)
-        self.assertEqual(response.data['quantidade_vendas'], 0)
+        self.assertEqual(response.data['indicadores']['faturamento_total'], 0)
+        self.assertEqual(response.data['indicadores']['ticket_medio'], 0) 
+        self.assertEqual(response.data['indicadores']['quantidade_vendas'], 0) 
 
     def test_create_venda_invalid_data(self):
         """Testa tentativa de criar venda sem cliente"""
