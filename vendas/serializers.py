@@ -12,3 +12,14 @@ class VendaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venda
         fields = '__all__'
+
+    def create(self, validated_data):
+        # Remove os itens dos dados validados para criar a Venda primeiro
+        itens_data = validated_data.pop('itens')
+        venda = Venda.objects.create(**validated_data)
+        
+        # Cria cada item associando-o à venda recém-criada
+        for item_data in itens_data:
+            ItemVenda.objects.create(venda=venda, **item_data)
+        
+        return venda
