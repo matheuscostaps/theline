@@ -280,6 +280,37 @@ Mostrar os dados consolidados de faturamento e vendas.
     "faturamento_total": "15000.00"
 }
 ```
+## ❌ Deletar Venda
+
+A API permite remover uma venda registrada no sistema.
+
+### 📌 Endpoint
+
+http://127.0.0.1:8000/api/vendas/3/  | (3 é o id do cliente)
+---
+
+### 🧾 Método HTTP
+
+---
+##DELETE
+### 🎯 Objetivo
+
+Remover uma venda específica pelo seu ID.
+
+---
+
+### ⚙️ Funcionamento
+
+Ao enviar uma requisição `DELETE`:
+
+- A venda é excluída do banco de dados
+- Ela deixa de aparecer na listagem de vendas
+- Dependendo da regra do sistema, o estoque pode ser ajustado automaticamente (se implementado)
+
+---
+## DELETE /api/vendas/3/
+
+### 📌 Exemplo de Requisição
 
 ---
 
