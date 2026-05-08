@@ -1,37 +1,328 @@
 # The Line - Sistema de Gestão Comercial (SGC)
 
 ## 📌 Sobre o Projeto
-Este projeto consiste no desenvolvimento de um Sistema de Gestão Comercial (SGC) aplicado a um contexto real de comércio eletrónico. 
 
-O sistema foi projetado para atender às necessidades da **The Line**, uma empresa B2C especializada na venda de roupas e acessórios de moda para todo o Brasil. O objetivo principal da plataforma é oferecer uma gestão eficiente integrando as áreas de:
+Este projeto consiste no desenvolvimento de um **Sistema de Gestão Comercial (SGC)** aplicado a um contexto real de comércio eletrónico.
 
-* **Diretoria:** Visão estratégica e relatórios de vendas.
-* **Catálogo e Produtos:** Gestão de estoque, preços e cadastro de peças.
-* **Vendas:** Registo de pedidos e atualização automática de estoque.
-* **Marketing:** Acesso aos dados de clientes para campanhas promocionais.
+O sistema foi projetado para atender às necessidades da **The Line**, uma empresa B2C especializada na venda de roupas e acessórios de moda para todo o Brasil.
 
-## ⚙️ Tecnologias e Arquitetura
-O sistema está sendo construído seguindo uma **Arquitetura em Camadas** e utiliza as seguintes tecnologias:
-* **Interface Web:** Django (Python)
-* **Comunicação:** API REST (retornando JSON)
-* **Banco de Dados:** Relacional (SQL)
-* **Segurança:** Autenticação baseada em Token (JWT) e senhas criptografadas
+A plataforma tem como objetivo oferecer uma gestão eficiente integrando as áreas de:
 
-## 🚀 Funcionalidades Principais
-* **Gestão de Clientes:** Cadastro e controle de clientes (com validação de CPF e E-mail).
-* **Gestão de Produtos:** Controlo de estoque e preços.
-* **Registo de Vendas:** Cálculo automático de valores e baixa de estoque.
-* **Autenticação e Perfis:** Controlo de acesso (ADMIN e FUNCIONARIO).
-* **Relatórios:** Gráficos e dados de vendas por período e por cliente.
+- **Diretoria:** visão estratégica e relatórios de vendas
+- **Catálogo e Produtos:** gestão de estoque, preços e cadastro de peças
+- **Vendas:** registo de pedidos e atualização automática de estoque
+- **Marketing:** acesso aos dados de clientes para campanhas promocionais
 
-## 📦 Extensões Utilizadas
+---
+
+# ⚙️ Tecnologias e Arquitetura
+
+O sistema foi desenvolvido seguindo uma **Arquitetura em Camadas** utilizando as seguintes tecnologias:
+
+- **Backend:** Django (Python)
+- **API:** Django REST Framework
+- **Comunicação:** API REST (JSON)
+- **Banco de Dados:** SQLite
+- **Segurança:** autenticação baseada em Token (JWT) e senhas criptografadas
+
+---
+
+# 🚀 Funcionalidades Principais
+
+## 👤 Gestão de Clientes
+- Cadastro de clientes
+- Validação de CPF
+- Validação de e-mail
+
+## 📦 Gestão de Produtos
+- Cadastro de produtos
+- Controle de estoque
+- Gestão de preços
+
+## 🛒 Registo de Vendas
+- Registro de pedidos
+- Cálculo automático de valores
+- Baixa automática de estoque
+
+## 🔐 Autenticação e Perfis
+- Controle de acesso
+- Perfis ADMIN e FUNCIONARIO
+
+## 📈 Relatórios
+- Relatórios de vendas
+- Dados consolidados
+- Informações por período e cliente
+
+---
+
+# 📦 Extensões Utilizadas
+
 - Python
 - Python Debugger
 - SQLite Viewer
-  
-## 👥 Equipe
+
+---
+
+# 🚀 Como Executar o Projeto
+
+## 1️⃣ Clonar o Repositório
+
+```bash
+git clone <URL_DO_REPOSITORIO>
+```
+
+---
+
+## 2️⃣ Entrar na Pasta do Projeto
+
+```bash
+cd nome-do-projeto
+```
+
+---
+
+## 3️⃣ Criar e Ativar o Ambiente Virtual
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Linux/Mac
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+## 4️⃣ Instalar as Dependências
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 5️⃣ Executar as Migrações
+
+```bash
+python manage.py migrate
+```
+
+---
+
+## 6️⃣ Iniciar o Servidor
+
+```bash
+python manage.py runserver
+```
+
+---
+
+# 🌐 Acesso à API
+
+Com o servidor iniciado:
+
+```text
+http://127.0.0.1:8000/
+```
+
+---
+
+# 📋 Passo a Passo da Demonstração
+
+Este roteiro foi preparado para demonstrar o funcionamento completo do sistema durante a apresentação.
+
+---
+
+# 1️⃣ Mostrar os Produtos
+
+Acesse:
+
+```text
+/api/produtos/
+```
+
+## Objetivo
+Mostrar os produtos cadastrados e o estoque atual.
+
+### Exemplo esperado
+
+```json
+{
+    "id": 1,
+    "nome": "Notebook",
+    "preco": "3500.00",
+    "estoque": 10
+}
+```
+
+---
+
+# 2️⃣ Registrar uma Nova Venda
+
+Acesse:
+
+```text
+/api/vendas/
+```
+
+## Método
+
+```text
+POST
+```
+
+## Selecionar a opção
+
+```text
+Raw data
+```
+
+## Exemplo de JSON
+
+```json
+{
+    "produto": 1,
+    "quantidade": 2
+}
+```
+
+## Objetivo
+Demonstrar o cadastro de uma nova venda pela API.
+
+---
+
+# 3️⃣ Demonstrar a Atualização Automática do Estoque
+
+Volte novamente para:
+
+```text
+/api/produtos/
+```
+
+## Objetivo
+Mostrar que o estoque do produto foi reduzido automaticamente após a venda.
+
+### Exemplo
+
+Antes da venda:
+
+```json
+"estoque": 10
+```
+
+Depois da venda:
+
+```json
+"estoque": 8
+```
+
+## Regra de Negócio Demonstrada
+
+✔ Atualização automática do estoque  
+✔ Integração entre produtos e vendas  
+✔ Persistência no banco de dados
+
+---
+
+# 4️⃣ Mostrar a Venda Registrada
+
+Acesse novamente:
+
+```text
+/api/vendas/
+```
+
+## Objetivo
+Comprovar que a venda foi salva corretamente no banco de dados.
+
+### Exemplo esperado
+
+```json
+{
+    "id": 1,
+    "produto": 1,
+    "quantidade": 2,
+    "valor_total": "7000.00",
+    "data": "2026-05-08T10:30:00Z"
+}
+```
+
+---
+
+# 5️⃣ Demonstrar o Relatório de Vendas
+
+Acesse:
+
+```text
+/api/vendas/relatorio/
+```
+
+## Objetivo
+Mostrar os dados consolidados de faturamento e vendas.
+
+### Exemplo esperado
+
+```json
+{
+    "total_vendas": 5,
+    "faturamento_total": "15000.00"
+}
+```
+
+---
+
+# ✅ Funcionalidades Demonstradas
+
+Durante a apresentação serão demonstradas:
+
+- Cadastro e listagem de produtos
+- Controle de estoque
+- Registro de vendas
+- Atualização automática do estoque
+- Persistência no banco de dados
+- Relatório consolidado de vendas
+- API REST funcional
+
+---
+
+# 🛠 Tecnologias Utilizadas
+
+- Python
+- Django
+- Django REST Framework
+- SQLite
+- API REST
+
+---
+
+# 📌 Observações
+
+- O estoque é atualizado automaticamente após cada venda
+- O sistema impede inconsistências entre vendas e produtos
+- Todos os dados ficam registrados no banco de dados
+
+---
+
+# 👥 Equipe
+
 Projeto desenvolvido por:
-* Matheus Costa Pessanha - [matheuscostaps](https://github.com/matheuscostaps)
-* Tais Döring - [TaisDF](https://github.com/TaisDF)
-* Geovana Rodrigues - [geovanards](https://github.com/geovanards)
-* Alysson Kennedy - [AlyssonKennedy744](https://github.com/AlyssonKennedy744)
+
+- **Matheus Costa Pessanha**  
+  GitHub: [matheuscostaps](https://github.com/matheuscostaps)
+
+- **Tais Döring**  
+  GitHub: [TaisDF](https://github.com/TaisDF)
+
+- **Geovana Rodrigues**  
+  GitHub: [geovanards](https://github.com/geovanards)
+
+- **Alysson Kennedy**  
+  GitHub: [AlyssonKennedy744](https://github.com/AlyssonKennedy744)
+
+---
