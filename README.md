@@ -76,7 +76,7 @@ git clone <URL_DO_REPOSITORIO>
 ## 2️⃣ Entrar na Pasta do Projeto
 
 ```bash
-cd nome-do-projeto
+cd theline
 ```
 
 ---
@@ -135,8 +135,7 @@ http://127.0.0.1:8000/
 
 # 📋 Passo a Passo da Demonstração
 
-Este roteiro foi preparado para demonstrar o funcionamento completo do sistema durante a apresentação.
-
+Este roteiro foi preparado para demonstrar o funcionamento completo do sistema e a integração das regras de negócio.
 ---
 
 # 1️⃣ Mostrar os Produtos
@@ -155,8 +154,8 @@ Mostrar os produtos cadastrados e o estoque atual.
 ```json
 {
     "id": 1,
-    "nome": "Notebook",
-    "preco": "3500.00",
+    "nome": "Babylook Patinho",
+    "preco": "300.00",
     "estoque": 10
 }
 ```
@@ -187,8 +186,15 @@ Raw data
 
 ```json
 {
-    "produto": 1,
-    "quantidade": 2
+    "cliente": 1,
+    "valor_total": 500.00,
+    "itens": [
+        {
+            "produto": 4,
+            "quantidade": 5,
+            "preco_unitario": 100.00
+        }
+    ]
 }
 ```
 
@@ -206,7 +212,7 @@ Volte novamente para:
 ```
 
 ## Objetivo
-Mostrar que o estoque do produto foi reduzido automaticamente após a venda.
+Mostrar que o estoque do produto foi reduzido automaticamente de forma proporcional à quantidade vendida.
 
 ### Exemplo
 
