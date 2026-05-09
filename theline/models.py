@@ -19,11 +19,11 @@ def validar_preco_positivo(valor):
         raise ValidationError("O preço não pode ser negativo.")
 
 class Produto(models.Model):
-    nome = models.CharField(max_length=200)
-    # Adicionamos o validator aqui
-    preco = models.DecimalField(max_digits=10, decimal_places=2, validators=[validar_preco_positivo])
-    quantidade_estoque = models.IntegerField(default=0)
-
+    nome = models.CharField(max_length=255)
+    descricao = models.TextField(blank=True, null=True) # <-- ESTA LINHA PRECISA ESTAR AQUI
+    preco = models.DecimalField(max_digits=10, decimal_places=2)
+    quantidade_estoque = models.IntegerField()
+    
     def baixar_estoque(self, quantidade):
         if self.quantidade_estoque < quantidade:
             raise ValidationError(f"Estoque insuficiente para o produto {self.nome}.")
