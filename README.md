@@ -27,8 +27,6 @@ O sistema foi desenvolvido seguindo uma **Arquitetura em Camadas** utilizando as
 
 ---
 
-<<<<<<< HEAD
-=======
 # 🛠 Diferenciais Técnicos e Robustez
 
 ## ⚠️ Tratamento de Exceções Personalizadas
@@ -46,7 +44,6 @@ O sistema utiliza exceções customizadas para garantir que as regras de negóci
 
 ---
 
->>>>>>> feature/finalizacao-entrega-2
 # 🚀 Funcionalidades Principais
 
 ## 👤 Gestão de Clientes
@@ -141,7 +138,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-<<<<<<< HEAD
+
 =======
 Para garantir a sua nota máxima, acrescentei as seções fundamentais que o critério de avaliação exige: **Execução de Testes**, **Tratamento de Exceções Personalizadas** e o comando de **requirements.txt**.
 
@@ -156,7 +153,7 @@ python manage.py test
 
 ```
 
->>>>>>> feature/finalizacao-entrega-2
+
 ---
 
 # 🌐 Acesso à API
