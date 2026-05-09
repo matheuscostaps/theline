@@ -8,6 +8,7 @@ from theline.views import (
     VendaViewSet
 )
 
+
 router = DefaultRouter()
 
 router.register(r'clientes', ClienteViewSet)

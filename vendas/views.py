@@ -1,48 +1,15 @@
-from .models import Produto, Venda
-from rest_framework.decorators import action
-from .models import Cliente
-from .serializers import ClienteSerializer, ProdutoSerializer, VendaSerializer
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Produto
-from .serializers import ProdutoSerializer
 from django.db.models import Sum, Avg, Count
-from django.db import transaction
-from django.shortcuts import render
+from django.db import transaction # Garante que se algo der errado, nada seja salvo
 
-# Views de frontend (HTML)
-def dashboard_view(request):
-    return render(request, 'web/index.html')
-
-def produtos_view(request):
-    return render(request, 'web/produtos.html')
-
-def clientes_view(request):
-    return render(request, 'web/clientes.html')
-
-def vendas_view(request):
-    return render(request, 'web/vendas.html')
-
-
-class ClienteViewSet(viewsets.ModelViewSet):
-    queryset = Cliente.objects.all()
-    serializer_class = ClienteSerializer
-
-class ProdutoViewSet(viewsets.ModelViewSet):
-    queryset = Produto.objects.all()
-    serializer_class = ProdutoSerializer
-
-    @action(detail=True, methods=['post'])
-    def baixar_estoque(self, request, pk=None):
-        produto = self.get_object()
-        quantidade = request.data.get('quantidade', 0)
-
-        try:
-            produto.baixar_estoque(int(quantidade))
-            return Response({'status': 'estoque atualizado'}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+from .models import Venda
+from .serializers import VendaSerializer
+from clientes.models import Cliente
+from produtos.models import Produto
+from clientes.serializers import ClienteSerializer
+from produtos.serializers import ProdutoSerializer
 
 class VendaViewSet(viewsets.ModelViewSet):
     queryset = Venda.objects.all()
@@ -90,4 +57,3 @@ class VendaViewSet(viewsets.ModelViewSet):
             "vendas": VendaSerializer(vendas_filtradas, many=True).data,
             "mensagem": "Relatório filtrado com sucesso"
         })
-    
