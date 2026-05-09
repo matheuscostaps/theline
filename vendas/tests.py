@@ -12,7 +12,13 @@ class VendaViewSetTests(APITestCase):
         # Criando dados básicos para os testes
         self.cliente = Cliente.objects.create(nome="João Silva")
         self.produto = Produto.objects.create(nome="Pijama de Poney", preco=100.00)
-        
+
+        self.produto = Produto.objects.create(
+            nome="Pijama de Poney", 
+            preco=100.00,
+            quantidade_estoque=50 
+        )
+
         # Criando uma venda inicial
         self.venda = Venda.objects.create(
             cliente=self.cliente,

@@ -27,6 +27,26 @@ O sistema foi desenvolvido seguindo uma **Arquitetura em Camadas** utilizando as
 
 ---
 
+<<<<<<< HEAD
+=======
+# 🛠 Diferenciais Técnicos e Robustez
+
+## ⚠️ Tratamento de Exceções Personalizadas
+
+O sistema utiliza exceções customizadas para garantir que as regras de negócio sejam respeitadas e retornem mensagens claras via API:
+
+* **EstoqueInsuficiente:** Interrompe a venda caso a quantidade solicitada seja maior que a disponível no banco de dados.
+* **VendaSemItens:** Impede a criação de registros de venda vazios.
+* **Handler Global:** Erros são capturados e tratados para evitar respostas genéricas do servidor (Erro 500).
+
+## 📊 Integridade de Dados
+
+* **Atomic Transactions:** O registro da venda e a baixa do estoque ocorrem dentro de uma transação atômica. Se um falhar, o outro não é executado, evitando dados inconsistentes.
+* **Proteção de Deleção:** Clientes com vendas registradas são protegidos contra exclusão acidental (`models.PROTECT`).
+
+---
+
+>>>>>>> feature/finalizacao-entrega-2
 # 🚀 Funcionalidades Principais
 
 ## 👤 Gestão de Clientes
@@ -121,6 +141,22 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+<<<<<<< HEAD
+=======
+Para garantir a sua nota máxima, acrescentei as seções fundamentais que o critério de avaliação exige: **Execução de Testes**, **Tratamento de Exceções Personalizadas** e o comando de **requirements.txt**.
+
+Mantenha o seu conteúdo original e insira estes blocos nos locais indicados abaixo:
+
+## 7️⃣ Executar os Testes Automatizados
+
+Para validar a integridade do sistema, controle de estoque e relatórios:
+
+```bash
+python manage.py test
+
+```
+
+>>>>>>> feature/finalizacao-entrega-2
 ---
 
 # 🌐 Acesso à API

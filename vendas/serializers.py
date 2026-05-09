@@ -19,12 +19,17 @@ class VendaSerializer(serializers.ModelSerializer):
         venda = Venda.objects.create(**validated_data)
         
         for item_data in itens_data:
+            produto = item_data['produto']
+            quantidade = item_data['quantidade']
+
+            if produto.quantidade_estoque < quantidade:
+                raise serializers.ValidationError(
+                    f"Estoque insuficiente para o produto {produto.nome}. Disponível: {produto.quantidade_estoque}"
+                )
+            
             ItemVenda.objects.create(venda=venda, **item_data)
             
-            produto = item_data['produto']
-            
-            produto.quantidade_estoque -= item_data['quantidade']
-            
-            produto.save()
-            
-        return venda
+            produto.quantidade_estoque -= quantidade
+
+            produto.save()  
+            return venda
