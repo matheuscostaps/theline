@@ -1,9 +1,8 @@
 from decimal import Decimal
-from django.urls import reverse # Importe o reverse
-from produtos.models import Produto
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from .models import Cliente, ItemVenda, Venda
+from .models import Cliente, ItemVenda, Venda, Produto
 from django.core.exceptions import ValidationError
 
 class ClienteAPITest(APITestCase):
@@ -82,7 +81,11 @@ class VendaViewSetTests(APITestCase):
     def setUp(self):
         # Criando dados básicos para os testes
         self.cliente = Cliente.objects.create(nome="João Silva")
-        self.produto = Produto.objects.create(nome="Pijama de Poney", preco=100.00)
+        self.produto = Produto.objects.create(
+            nome="Pijama de Poney",
+            preco=100.00,
+            quantidade_estoque=50
+        )
 
         self.produto = Produto.objects.create(
             nome="Pijama de Poney", 
