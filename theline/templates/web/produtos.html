@@ -5,7 +5,7 @@
 <section class="card">
     {% if messages %}
         {% for message in messages %}
-            <div class="alert {{ message.tags }}" style="padding: 15px; margin-bottom: 20px; border-radius: 5px; color: white; background: {% if message.tags == 'error' %}#f44336{% else %}#4CAF50{% endif %};">
+            <div class="alert {{ message.tags }}" style="padding: 15px; margin-bottom: 20px; border-radius: 5px; color: white;">
                 {{ message }}
             </div>
         {% endfor %}
@@ -73,21 +73,5 @@
         </tbody>
     </table>
 </section>
-
-
-<style>
-/* O mesmo CSS utilizado na tela de clientes */
-.topo-clientes{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.btn-adicionar{ background-color: #111; color: white; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; display: inline-block; }
-.btn-adicionar:hover{ background-color: #333; }
-#tabela-clientes{ width: 100%; border-collapse: collapse; background-color: white; }
-#tabela-clientes th, #tabela-clientes td{ border: 1px solid #ddd; padding: 12px; text-align: center; }
-#tabela-clientes th{ background-color: #111; color: white; }
-#tabela-clientes tr:nth-child(even){ background-color: #f5f5f5; }
-#tabela-clientes tr:hover{ background-color: #ececec; }
-.btn-editar { background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; font-size: 14px;}
-.btn-excluir { background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 14px;}
-</style>
-
 
 {% endblock %}
