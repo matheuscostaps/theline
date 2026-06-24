@@ -15,8 +15,9 @@ router.register(r'vendas', views.VendaViewSet)
 # ROTAS GERAIS
 # ==========================================
 urlpatterns = [
+    path('', views.dashboard, name='dashboard'),
+
     # Páginas (Frontend)
-    path('', views.index_view, name='dashboard'),
     path('produtos/', views.produtos_view, name='produtos'),
     path('vendas/', views.vendas_view, name='vendas'),
 
@@ -41,13 +42,10 @@ urlpatterns = [
     # Rotas da API (Retornam JSON)
     path('api/', include(router.urls)),
 
-        # permitir o fluxo de login
+    # permitir o fluxo de login
     path('login/', views.login_view, name='login'),
     # permitir o fluxo de login
     path('logout/', views.logout_view, name='logout'), 
     # permitir o cadastro de um novo usuário
     path('register/', views.register_view, name='register'),
-    # recurso para verificar se o usuário está autenticado, 
-    # antes de acessar o recurso
-    path('dashboard/', views.dashboard, name='dashboard'),
 ]

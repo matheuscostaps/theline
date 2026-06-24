@@ -17,16 +17,15 @@ from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .forms import ClienteForm, ProdutoForm
 
 # ==========================================
 # VIEWS DE FRONTEND (Páginas HTML)
 # ==========================================
 
-def index_view(request):
-    return render(request, 'web/index.html')
-
 # --- CRUD Clientes ---
 
+@login_required(login_url='login')
 def clientes_view(request):
     clientes = Cliente.objects.all()
     cliente_edit = None
@@ -40,7 +39,7 @@ def clientes_view(request):
         'cliente_edit': cliente_edit
     })
 
-
+@login_required(login_url='login')
 def criar_cliente(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
@@ -50,7 +49,7 @@ def criar_cliente(request):
 
     return redirect('clientes')
 
-
+@login_required(login_url='login')
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
@@ -65,6 +64,7 @@ def editar_cliente(request, pk):
 
     return redirect('clientes')
 
+@login_required(login_url='login')
 def excluir_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
@@ -84,6 +84,7 @@ def excluir_cliente(request, pk):
 
 # --- CRUD Produtos ---
 
+@login_required(login_url='login')
 def produtos_view(request):
     produtos = Produto.objects.all()
     produto_edit = None
@@ -98,7 +99,7 @@ def produtos_view(request):
         'produto_edit': produto_edit
     })
 
-
+@login_required(login_url='login')
 def criar_produto(request):
     if request.method == "POST":
         form = ProdutoForm(request.POST)
@@ -108,6 +109,7 @@ def criar_produto(request):
 
     return redirect('produtos')
 
+@login_required(login_url='login')
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
@@ -122,7 +124,7 @@ def editar_produto(request, pk):
 
     return redirect('produtos')
 
-
+@login_required(login_url='login')
 def excluir_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
@@ -142,6 +144,7 @@ def excluir_produto(request, pk):
 
 # --- CRUD Vendas ---
 
+@login_required(login_url='login')
 def vendas_view(request):
     vendas = Venda.objects.all().order_by('-id')
     clientes = Cliente.objects.all()
@@ -151,7 +154,7 @@ def vendas_view(request):
         'clientes': clientes
     })
 
-
+@login_required(login_url='login')
 def criar_venda(request):
     if request.method == "POST":
         cliente_id = request.POST.get('cliente_id')
@@ -166,7 +169,7 @@ def criar_venda(request):
 
     return redirect('vendas')
 
-
+@login_required(login_url='login')
 def detalhes_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -182,7 +185,7 @@ def detalhes_venda(request, pk):
         'produtos': produtos
     })
 
-
+@login_required(login_url='login')
 def adicionar_item_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -225,6 +228,7 @@ def adicionar_item_venda(request, pk):
 
 # --- Relatórios ---
 
+@login_required(login_url='login')
 def relatorios_view(request):
     vendas = Venda.objects.all().order_by('-data_venda')
     clientes = Cliente.objects.all()
@@ -412,4 +416,4 @@ def logout_view(request):
 # Dashboard protegido
 @login_required(login_url='login')
 def dashboard(request):
-  return render(request, 'web/dashboard.html')
+  return render(request, 'web/index.html')

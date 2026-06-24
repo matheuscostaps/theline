@@ -1,8 +1,0 @@
-{% extends 'web/base.html' %}
-
-{% block conteudo %}
-
-<h2>Bem-vindo, {{ request.user.username }}</h2>
-<a href="{% url 'logout' %}">Sair</a>
-
-{% endblock %}

@@ -3,8 +3,12 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block conteudo %}
+<h2>Bem-vindo, {{ request.user.username }}</h2>
+
 <section class="card">
     <h1>Bem-vindo ao The Line</h1>
     <p>Selecione uma opção no menu lateral para gerenciar sua loja.</p>
 </section>
+
+<a href="{% url 'logout' %}">Sair</a>
 {% endblock %}
