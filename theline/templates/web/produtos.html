@@ -56,7 +56,7 @@
             <input type="text" name="descricao" value="{{ produto_edit.descricao|default:'' }}" placeholder="Descrição"
                 required
                 class="input input-bordered bg-white flex-[3] min-w-[250px] focus:border-secundary focus:outline-none">
-            <input type="number" step="0.01" name="preco" value="{{ produto_edit.preco|stringformat:'f'|default:'' }}"
+                <input type="number" step="0.01" name="preco" value="{% if produto_edit %}{{ produto_edit.preco|floatformat:'2u' }}{% endif %}"
                 placeholder="Preço (R$)" required
                 class="input input-bordered bg-white flex-[1] min-w-[120px] focus:border-secundary focus:outline-none">
             <input type="number" name="quantidade_estoque" value="{{ produto_edit.quantidade_estoque|default:'' }}"
