@@ -15,4 +15,4 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('A iniciar o servidor de desenvolvimento...'))
         
-        call_command('runserver')
+        call_command('runserver', '0.0.0.0:8000')
