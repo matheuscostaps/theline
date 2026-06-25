@@ -3,9 +3,9 @@
 {% block conteudo %}
 
 <section class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-divisorBorder">
-    
+
     {% if messages %}
-    <div class="mb-6 flex flex-col gap-2">
+    <div id="alert-messages" class="mb-6 flex flex-col gap-2 transition-opacity duration-500 ease-in-out opacity-100">
         {% for message in messages %}
         <div class="p-4 rounded-lg bg-red text-white font-medium {{ message.tags }}">
             {{ message }}
@@ -13,6 +13,24 @@
         {% endfor %}
     </div>
     {% endif %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const messages = document.getElementById("alert-messages");
+
+            if (messages) {
+                setTimeout(function () {
+                    messages.classList.remove("opacity-100");
+                    messages.classList.add("opacity-0");
+
+                    setTimeout(function () {
+                        messages.style.display = "none";
+                    }, 500);
+
+                }, 5000);
+            }
+        });
+    </script>
 
     <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
         <h1 class="text-2xl font-bold text-gray">Clientes</h1>
@@ -36,18 +54,16 @@
             <input type="text" name="nome" value="{{ cliente_edit.nome|default:'' }}" placeholder="Nome Completo"
                 required
                 class="input input-bordered bg-white flex-[2] min-w-[200px] focus:border-secundary focus:outline-none">
-                
-            <input type="text" name="cpf" value="{{ cliente_edit.cpf|default:'' }}" placeholder="CPF"
-                required
+
+            <input type="text" name="cpf" value="{{ cliente_edit.cpf|default:'' }}" placeholder="CPF" required
                 class="input input-bordered bg-white flex-[1] min-w-[150px] focus:border-secundary focus:outline-none">
-                
-            <input type="email" name="email" value="{{ cliente_edit.email|default:'' }}" placeholder="E-mail"
-                required
+
+            <input type="email" name="email" value="{{ cliente_edit.email|default:'' }}" placeholder="E-mail" required
                 class="input input-bordered bg-white flex-[2] min-w-[200px] focus:border-secundary focus:outline-none">
-                
+
             <input type="text" name="telefone" value="{{ cliente_edit.telefone|default:'' }}" placeholder="Telefone"
                 class="input input-bordered bg-white flex-[1] min-w-[150px] focus:border-secundary focus:outline-none">
-                
+
             <input type="text" name="endereco" value="{{ cliente_edit.endereco|default:'' }}" placeholder="Endereço"
                 class="input input-bordered bg-white flex-[3] min-w-[300px] focus:border-secundary focus:outline-none">
 
