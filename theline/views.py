@@ -53,9 +53,6 @@ def clientes_view(request):
         'cliente_edit': cliente_edit
     })
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
 def criar_cliente(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
@@ -65,9 +62,6 @@ def criar_cliente(request):
 
     return redirect('clientes')
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
@@ -82,9 +76,6 @@ def editar_cliente(request, pk):
 
     return redirect('clientes')
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
 def excluir_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
@@ -121,9 +112,6 @@ def produtos_view(request):
         'produto_edit': produto_edit
     })
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
 def criar_produto(request):
     if request.method == "POST":
         form = ProdutoForm(request.POST)
@@ -136,9 +124,7 @@ def criar_produto(request):
             
     return redirect('produtos')
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
+
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
@@ -163,9 +149,6 @@ def editar_produto(request, pk):
         'produto_edit': produto
     })
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
 def excluir_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
@@ -197,9 +180,7 @@ def vendas_view(request):
         'clientes': clientes
     })
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
+
 def criar_venda(request):
     if request.method == "POST":
         cliente_id = request.POST.get('cliente_id')
@@ -214,9 +195,7 @@ def criar_venda(request):
 
     return redirect('vendas')
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
+
 def detalhes_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -231,10 +210,7 @@ def detalhes_venda(request, pk):
         'itens': itens,
         'produtos': produtos
     })
-
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
+    
 def adicionar_item_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -271,9 +247,6 @@ def adicionar_item_venda(request, pk):
 
 # --- Relatórios ---
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
 def relatorios_view(request):
     vendas = Venda.objects.all().order_by('-data_venda')
     clientes = Cliente.objects.all()
