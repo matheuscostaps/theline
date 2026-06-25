@@ -2,12 +2,6 @@
 
 {% block conteudo %}
 
-<<<<<<< HEAD
-<section class="card">
-    <div class="topo-clientes">
-        <h1>Clientes</h1>
-        <a href="?novo=1" class="btn-adicionar" style="text-decoration: none; display: inline-block;">
-=======
 <section class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-divisorBorder">
 
     {% if messages %}
@@ -42,29 +36,11 @@
         <h1 class="text-2xl font-bold text-gray">Clientes</h1>
         <a href="?novo=1"
             class="bg-secundary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm">
->>>>>>> estilizacao
             + Novo Cliente
         </a>
     </div>
 
     {% if request.GET.novo or cliente_edit %}
-<<<<<<< HEAD
-    <div id="form-container" style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd;">
-        <h3 id="form-titulo" style="margin-top: 0;">{% if cliente_edit %}Editar Cliente{% else %}Novo Cliente{% endif %}</h3>
-        
-        <form method="POST" action="{% if cliente_edit %}{% url 'editar_cliente' cliente_edit.id %}{% else %}{% url 'criar_cliente' %}{% endif %}" style="display: flex; gap: 10px; flex-wrap: wrap;">
-            {% csrf_token %}
-            
-            <input type="text" name="nome" value="{{ cliente_edit.nome|default:'' }}" placeholder="Nome Completo" required style="padding: 8px; flex: 1; min-width: 200px;">
-            <input type="text" name="cpf" value="{{ cliente_edit.cpf|default:'' }}" placeholder="CPF" required style="padding: 8px; flex: 1; min-width: 150px;">
-            <input type="email" name="email" value="{{ cliente_edit.email|default:'' }}" placeholder="E-mail" required style="padding: 8px; flex: 1; min-width: 200px;">
-            <input type="text" name="telefone" value="{{ cliente_edit.telefone|default:'' }}" placeholder="Telefone" style="padding: 8px; flex: 1; min-width: 150px;">
-            <input type="text" name="endereco" value="{{ cliente_edit.endereco|default:'' }}" placeholder="Endereço" style="padding: 8px; flex: 2; min-width: 300px;">
-            
-            <div style="width: 100%; display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
-                <a href="{% url 'clientes' %}" style="padding: 8px 16px; cursor: pointer; text-decoration: none; color: black; background: #ccc; border-radius: 4px; display: inline-block;">Cancelar</a>
-                <button type="submit" class="btn-adicionar">Salvar</button>
-=======
     <div id="form-container" class="bg-secundaryWhite p-6 rounded-xl mb-8 border border-divisorBorder">
         <h3 class="text-lg font-bold text-gray mb-4">
             {% if cliente_edit %}Editar Cliente{% else %}Novo Cliente{% endif %}
@@ -100,72 +76,11 @@
                     class="bg-secundary text-white px-6 py-2.5 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm">
                     Salvar
                 </button>
->>>>>>> estilizacao
             </div>
         </form>
     </div>
     {% endif %}
 
-<<<<<<< HEAD
-    <table id="tabela-clientes">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Telefone</th>
-                <th>Endereço</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for cliente in clientes %}
-            <tr>
-                <td>{{ cliente.id }}</td>
-                <td>{{ cliente.nome }}</td>
-                <td>{{ cliente.email }}</td>
-                <td>{{ cliente.telefone|default:"-" }}</td>
-                <td>{{ cliente.endereco|default:"-" }}</td>
-                <td>
-                    <a href="?editar={{ cliente.id }}" class="btn-editar" style="text-decoration: none; display: inline-block;">Editar</a>
-                    
-                    <form action="{% url 'excluir_cliente' cliente.id %}" method="POST" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir este cliente?');">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-excluir">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">Nenhum cliente cadastrado.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
-
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert {{ message.tags }}" style="padding: 15px; margin-bottom: 20px; border-radius: 5px; color: white; background: {% if message.tags == 'error' %}#f44336{% else %}#4CAF50{% endif %};">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
-
-<style>
-.topo-clientes{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.btn-adicionar{ background-color: #111; color: white; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-.btn-adicionar:hover{ background-color: #333; }
-#tabela-clientes{ width: 100%; border-collapse: collapse; background-color: white; }
-#tabela-clientes th, #tabela-clientes td{ border: 1px solid #ddd; padding: 12px; text-align: center; }
-#tabela-clientes th{ background-color: #111; color: white; }
-#tabela-clientes tr:nth-child(even){ background-color: #f5f5f5; }
-#tabela-clientes tr:hover{ background-color: #ececec; }
-.btn-editar { background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px;}
-.btn-excluir { background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;}
-</style>
-
-=======
     <div class="overflow-x-auto">
         <table class="table w-full border border-divisorBorder">
             <thead>
@@ -220,5 +135,4 @@
     </div>
 </section>
 
->>>>>>> estilizacao
 {% endblock %}

@@ -2,20 +2,6 @@
 
 {% block conteudo %}
 
-<<<<<<< HEAD
-<section class="card">
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert {{ message.tags }}" style="padding: 15px; margin-bottom: 20px; border-radius: 5px; color: white; background: {% if message.tags == 'error' %}#f44336{% else %}#4CAF50{% endif %};">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-
-    <div class="topo-clientes">
-        <h1>Produtos</h1>
-        <a href="?novo=1" class="btn-adicionar" style="text-decoration: none; display: inline-block;">
-=======
 <section class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-divisorBorder">
     {% if messages %}
     <div id="alert-messages" class="mb-6 flex flex-col gap-2 transition-opacity duration-500 ease-in-out opacity-100">
@@ -49,28 +35,11 @@
         <h1 class="text-2xl font-bold text-gray">Produtos</h1>
         <a href="?novo=1"
             class="bg-secundary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm">
->>>>>>> estilizacao
             + Novo Produto
         </a>
     </div>
 
     {% if request.GET.novo or produto_edit %}
-<<<<<<< HEAD
-    <div id="form-container" style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd;">
-        <h3 style="margin-top: 0;">{% if produto_edit %}Editar Produto{% else %}Novo Produto{% endif %}</h3>
-        
-        <form method="POST" action="{% if produto_edit %}{% url 'editar_produto' produto_edit.id %}{% else %}{% url 'criar_produto' %}{% endif %}" style="display: flex; gap: 10px; flex-wrap: wrap;">
-            {% csrf_token %}
-            
-            <input type="text" name="nome" value="{{ produto_edit.nome|default:'' }}" placeholder="Nome do Produto" required style="padding: 8px; flex: 2; min-width: 200px;">
-            <input type="text" name="descricao" value="{{ produto_edit.descricao|default:'' }}" placeholder="Descrição" required style="padding: 8px; flex: 3; min-width: 250px;">
-            <input type="number" step="0.01" name="preco" value="{{ produto_edit.preco|stringformat:'f'|default:'' }}" placeholder="Preço (R$)" required style="padding: 8px; flex: 1; min-width: 120px;">
-            <input type="number" name="quantidade_estoque" value="{{ produto_edit.quantidade_estoque|default:'' }}" placeholder="Estoque" required style="padding: 8px; flex: 1; min-width: 100px;">
-            
-            <div style="width: 100%; display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
-                <a href="{% url 'produtos' %}" style="padding: 8px 16px; cursor: pointer; text-decoration: none; color: black; background: #eee; border-radius: 4px;">Cancelar</a>
-                <button type="submit" class="btn-adicionar">Salvar</button>
-=======
     <div id="form-container" class="bg-secundaryWhite p-6 rounded-xl mb-8 border border-divisorBorder">
         <h3 class="text-lg font-bold text-gray mb-4">
             {% if produto_edit %}Editar Produto{% else %}Novo Produto{% endif %}
@@ -103,66 +72,11 @@
                     class="bg-secundary text-white px-6 py-2.5 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm">
                     Salvar
                 </button>
->>>>>>> estilizacao
             </div>
         </form>
     </div>
     {% endif %}
 
-<<<<<<< HEAD
-    <table id="tabela-clientes">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Preço</th>
-                <th>Estoque</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for produto in produtos %}
-            <tr>
-                <td>{{ produto.id }}</td>
-                <td>{{ produto.nome }}</td>
-                <td>{{ produto.descricao }}</td>
-                <td>R$ {{ produto.preco }}</td>
-                <td>{{ produto.quantidade_estoque }}</td>
-                <td>
-                    <a href="?editar={{ produto.id }}" class="btn-editar" style="text-decoration: none;">Editar</a>
-                    <form action="{% url 'excluir_produto' produto.id %}" method="POST" style="display: inline;" onsubmit="return confirm('Excluir este produto?')">
-                        {% csrf_token %}
-                        <button type="submit" class="btn-excluir">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">Nenhum produto cadastrado.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
-
-
-<style>
-/* O mesmo CSS utilizado na tela de clientes */
-.topo-clientes{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.btn-adicionar{ background-color: #111; color: white; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; display: inline-block; }
-.btn-adicionar:hover{ background-color: #333; }
-#tabela-clientes{ width: 100%; border-collapse: collapse; background-color: white; }
-#tabela-clientes th, #tabela-clientes td{ border: 1px solid #ddd; padding: 12px; text-align: center; }
-#tabela-clientes th{ background-color: #111; color: white; }
-#tabela-clientes tr:nth-child(even){ background-color: #f5f5f5; }
-#tabela-clientes tr:hover{ background-color: #ececec; }
-.btn-editar { background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px; font-size: 14px;}
-.btn-excluir { background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 14px;}
-</style>
-
-
-=======
     <div class="overflow-x-auto">
         <table class="table w-full border border-divisorBorder">
             <thead>
@@ -217,5 +131,4 @@
     </div>
 </section>
 
->>>>>>> estilizacao
 {% endblock %}
