@@ -1,0 +1,33 @@
+<h2>THE LINE</h2>
+<ul>
+    <li>
+        <a href="{% url 'dashboard' %}">
+            {% include 'web/icons/home.svg' %}
+            <span>Home</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'produtos' %}">
+            {% include 'web/icons/produtos.svg' %}
+            <span>Produtos</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'clientes' %}">
+            {% include 'web/icons/clientes.svg' %}
+            <span>Clientes</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'vendas' %}">
+            {% include 'web/icons/vendas.svg' %}
+            <span>Vendas</span>
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'relatorios' %}">
+            {% include 'web/icons/relatorios.svg' %}
+            <span>Relatórios</span>
+        </a>
+    </li>
+</ul>

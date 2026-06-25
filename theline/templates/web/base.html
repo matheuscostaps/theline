@@ -1,40 +1,41 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Line - {% block title %}Dashboard{% endblock %}</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; }  
-        
-        /* Menu Lateral */
-        nav { width: 250px; height: 100vh; background: #1a1a1a; color: white; position: fixed; }
-        nav h2 { text-align: center; padding: 20px 0; border-bottom: 1px solid #333; color: #f4f4f4; }
-        nav ul { list-style: none; padding: 0; }
-        nav ul li { padding: 15px 25px; border-bottom: 1px solid #222; }
-        nav ul li a { color: #ccc; text-decoration: none; display: block; }
-        nav ul li a:hover { color: white; }
 
-        /* Área de Conteúdo */
-        main { margin-left: 250px; padding: 40px; width: 100%; background: #f9f9f9; min-height: 100vh; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1 { color: #333; }
-    </style>
-</head>
-<body>
-
-    <!-- MENU LATERAL -->
-    <nav>
-        {% include 'web/menu.html' %}
-    </nav>
-
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main>
-        {% block conteudo %}
-        <!-- Cada página vai preencher este bloco -->
-        {% endblock %}
-    </main>
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/tailwind-config.js' %}"></script>
     
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="flex flex-col h-screen overflow-hidden font-['Segoe_UI',_Tahoma,_Geneva,_Verdana,_sans-serif] bg-background">
+    <div class="flex flex-1 overflow-hidden">
+        {% if user.is_authenticated %}
+        <nav class="flex-none items-center w-64 bg-primary border-r border-divisorBorder overflow-y-auto">
+            {% include 'web/menu.html' %}
+        </nav>
+        {% endif %}
+
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            {% if user.is_authenticated %}
+            <header class="flex-none flex justify-between items-center px-10 h-[70px] border-b border-divisorBorder box-border">
+                {% include 'web/topbar.html' %}
+            </header>
+            {% endif %}
+
+            <div class="p-10 flex-1">
+                {% block conteudo %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <footer class="flex-none w-full text-center p-3 text-sm text-gray-500 border-t border-divisorBorder bg-background z-10">
+        <p>&copy; {% now "Y" %} The Line. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

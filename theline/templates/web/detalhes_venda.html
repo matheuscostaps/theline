@@ -1,76 +1,93 @@
 {% extends "web/base.html" %}
 
 {% block conteudo %}
-<section class="card">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-bottom: 20px;">
-        <div>
-            <h1 style="margin: 0;">Venda #{{ venda.id }}</h1>
-            <p style="margin: 5px 0 0 0; color: #555;">Cliente: <strong>{{ venda.cliente.nome }}</strong> | Data: {{ venda.data|date:"d/m/Y" }}</p>
+
+<section class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-divisorBorder">
+    
+    {% if messages %}
+    <div class="mb-6 flex flex-col gap-2">
+        {% for message in messages %}
+        <div class="p-4 rounded-lg bg-red text-white font-medium {{ message.tags }}">
+            <strong>Aviso:</strong> {{ message }}
         </div>
-        <div style="text-align: right;">
-            <h2 style="margin: 0; color: #28a745;">Total: R$ {{ venda.valor_total }}</h2>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b-2 border-divisorBorder pb-5 mb-8 gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-gray m-0">Venda #{{ venda.id }}</h1>
+            <p class="text-sm text-gray2 mt-1">
+                Cliente: <strong class="text-gray">{{ venda.cliente.nome }}</strong> <span class="mx-2">|</span> Data: {{ venda.data|date:"d/m/Y" }}
+            </p>
+        </div>
+        <div class="text-left sm:text-right">
+            <h2 class="text-xl font-bold text-secundary m-0">Total: R$ {{ venda.valor_total }}</h2>
         </div>
     </div>
 
-    {% if messages %}
-        {% for message in messages %}
-            <div style="background-color: #f8d7da; color: #721c24; padding: 12px; border: 1px solid #f5c6cb; border-radius: 4px; margin-bottom: 20px;">
-                <strong>Aviso:</strong> {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-
-    <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd;">
-        <h3 style="margin-top: 0;">Adicionar Produto à Venda</h3>
-        <form method="POST" action="{% url 'adicionar_item_venda' venda.id %}" style="display: flex; gap: 10px; align-items: center;">
+    <div class="bg-secundaryWhite p-6 rounded-xl mb-8 border border-divisorBorder">
+        <h3 class="text-lg font-bold text-gray mb-4">Adicionar Produto à Venda</h3>
+        
+        <form method="POST" action="{% url 'adicionar_item_venda' venda.id %}" class="flex flex-col sm:flex-row gap-4 items-center">
             {% csrf_token %}
-            <select name="produto_id" required style="padding: 10px; flex: 3; border-radius: 4px;">
-                <option value="">Selecione um produto...</option>
+            
+            <select name="produto_id" required class="select select-bordered bg-white w-full sm:flex-[3] focus:border-secundary focus:outline-none">
+                <option value="" disabled selected>Selecione um produto...</option>
                 {% for produto in produtos %}
-                <option value="{{ produto.id }}">{{ produto.nome }} - R$ {{ produto.preco }} (Estoque: {{ produto.quantidade_estoque }})</option>
+                <option value="{{ produto.id }}">
+                    {{ produto.nome }} - R$ {{ produto.preco }} (Estoque: {{ produto.quantidade_estoque }})
+                </option>
                 {% endfor %}
             </select>
             
-            <input type="number" name="quantidade" min="1" value="1" required style="padding: 10px; flex: 1; border-radius: 4px;" title="Quantidade">
+            <input type="number" name="quantidade" min="1" value="1" required placeholder="Qtd" title="Quantidade"
+                   class="input input-bordered bg-white w-full sm:flex-[1] focus:border-secundary focus:outline-none">
             
-            <button type="submit" class="btn-adicionar" style="flex: 1;">Adicionar Item</button>
+            <button type="submit" class="w-full sm:w-auto bg-secundary text-white px-6 py-3 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm sm:flex-[1] whitespace-nowrap">
+                Adicionar Item
+            </button>
         </form>
     </div>
 
-    <table id="tabela-clientes">
-        <thead>
-            <tr>
-                <th>Produto</th>
-                <th>Preço Unitário</th>
-                <th>Qtd.</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in itens %}
-            <tr>
-                <td>{{ item.produto.nome }}</td>
-                <td>R$ {{ item.produto.preco }}</td>
-                <td>{{ item.quantidade }}</td>
-                <td><strong>R$ {% widthratio item.produto.preco 1 item.quantidade %}</strong></td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="4">Nenhum produto adicionado ainda.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="overflow-x-auto">
+        <table class="table w-full border border-divisorBorder">
+            <thead>
+                <tr class="text-gray text-sm uppercase tracking-wider">
+                    <th class="bg-gray text-white border border-divisorBorder py-4">Produto</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4 text-center">Preço Unitário</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4 text-center">Qtd.</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4 text-right">Subtotal</th>
+                </tr>
+            </thead>
+            
+            <tbody class="text-gray text-sm">
+                {% for item in itens %}
+                <tr class="border-b border-divisorBorder bg-white2 hover:bg-itemHover transition-colors">
+                    <td class="text-gray2 py-4 font-medium">{{ item.produto.nome }}</td>
+                    <td class="text-gray2 py-4 text-center">R$ {{ item.produto.preco }}</td>
+                    <td class="text-gray2 py-4 text-center">{{ item.quantidade }}</td>
+                    <td class="text-secundary font-semibold py-4 text-right">
+                        R$ {% widthratio item.produto.preco 1 item.quantidade %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-lg py-8 text-gray font-medium bg-secundaryWhite rounded-b-lg">
+                        Nenhum produto adicionado ainda.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <div style="margin-top: 20px; text-align: right;">
-        <a href="{% url 'vendas' %}" class="btn-adicionar" style="text-decoration: none; display: inline-block;">Salvar e Voltar para Vendas</a>
+    <div class="mt-8 flex justify-end">
+        <a href="{% url 'vendas' %}" 
+           class="bg-gray text-white px-6 py-3 rounded-lg font-medium hover:bg-gray/90 transition-colors shadow-sm text-center">
+            Salvar e Voltar para Vendas
+        </a>
     </div>
 </section>
 
-<style>
-.btn-adicionar{ background-color: #111; color: white; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-.btn-adicionar:hover{ background-color: #333; }
-#tabela-clientes{ width: 100%; border-collapse: collapse; background-color: white; }
-#tabela-clientes th, #tabela-clientes td{ border: 1px solid #ddd; padding: 12px; text-align: center; }
-#tabela-clientes th{ background-color: #111; color: white; }
-#tabela-clientes tr:nth-child(even){ background-color: #f5f5f5; }
-</style>
 {% endblock %}

@@ -19,6 +19,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import ClienteForm, ProdutoForm
 
+from django.http import JsonResponse
+from django.urls import reverse
+from django.db.models import Q
+
 # ==========================================
 # VIEWS DE FRONTEND (Páginas HTML)
 # ==========================================
@@ -416,4 +420,72 @@ def logout_view(request):
 # Dashboard protegido
 @login_required(login_url='login')
 def dashboard(request):
+  
   return render(request, 'web/index.html')
+
+# ==========================================
+# BUSCA DINAMICA
+# ==========================================
+
+def busca_global(request):
+    query = request.GET.get('q', '').strip()
+    
+    if not query:
+        return JsonResponse({'results': []})
+
+    results = []
+    query_lower = query.lower()
+
+    if 'prod' in query_lower:
+        results.append({
+            'categoria': 'Páginas',
+            'texto': 'Gerenciar Produtos',
+            'url': reverse('produtos')
+        })
+    if 'cli' in query_lower:
+        results.append({
+            'categoria': 'Páginas',
+            'texto': 'Gerenciar Clientes',
+            'url': reverse('clientes')
+        })
+    if 'vend' in query_lower:
+        results.append({
+            'categoria': 'Páginas',
+            'texto': 'Histórico de Vendas',
+            'url': reverse('vendas')
+        })
+    
+    produtos = Produto.objects.filter(nome__icontains=query)[:4]
+    for p in produtos:
+        results.append({
+            'categoria': 'Produtos',
+            'texto': f"{p.nome} (R$ {p.preco})",
+            'url': reverse('produtos') + f"?busca={p.id}"
+        })
+
+    clientes = Cliente.objects.filter(
+        Q(nome__icontains=query) | 
+        Q(email__icontains=query) | 
+        Q(telefone__icontains=query) | 
+        Q(endereco__icontains=query)
+    )[:4]
+
+    for c in clientes:
+        texto_exibicao = c.nome
+        
+        if c.nome and query_lower in c.nome.lower():
+            texto_exibicao = c.nome
+        elif c.email and query_lower in c.email.lower():
+            texto_exibicao = c.email
+        elif c.telefone and query_lower in str(c.telefone).lower():
+            texto_exibicao = str(c.telefone)
+        elif c.endereco and query_lower in c.endereco.lower():
+            texto_exibicao = c.endereco
+
+        results.append({
+            'categoria': 'Clientes',
+            'texto': texto_exibicao, # Passa apenas a informação que deu "match"
+            'url': reverse('clientes') + f"?busca={c.id}" 
+        })
+
+    return JsonResponse({'results': results})

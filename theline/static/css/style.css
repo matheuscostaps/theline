@@ -1,0 +1,264 @@
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    margin: 0; 
+    display: flex; 
+}
+
+nav { 
+    width: 250px; 
+    height: 100vh; 
+    background: #ffffff;
+    color: white; 
+    position: fixed;
+
+    border-right: 1px solid #e0e0e0;
+}
+
+nav h2 { 
+    text-align: center; 
+    padding: 25px 0 15px 0; 
+    margin: 0;
+    color: #822fcf; 
+    font-weight: 700;
+    letter-spacing: 1px;
+    /* Removida a borda inferior antiga */
+}
+
+nav ul { 
+    list-style: none; 
+    padding: 10px 15px; /* Adiciona espaçamento nas laterais para o frame não colar na parede */
+    margin: 0;
+}
+
+nav ul li { 
+    margin-bottom: 8px; /* Pequeno espaço entre um botão e outro */
+    /* Removidas as listras/bordas inferiores */
+}
+
+/* ... regras de nav, nav h2, nav ul ... */
+
+nav ul li a { 
+    /* MUDANÇA AQUI: Cor padrão agora é Branco Puro */
+    color: #585858;
+    text-decoration: none; 
+    
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    
+    padding: 12px 20px; 
+    border-radius: 8px; 
+    font-weight: 400;
+    
+    /* Garante transição suave para cor do texto e do ícone */
+    transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+/* Tamanho e cor herdada dos ícones */
+nav ul li a svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    display: block;
+    fill: currentColor;
+}
+
+nav ul li a svg path {
+    fill: currentColor;
+}
+
+/* Efeito Hover (Frame Branco) */
+nav ul li a:hover {
+    color: #822fcf; 
+    background-color: #822fcf40;
+}
+
+/* Área de Conteúdo Principal */
+main { 
+    margin-left: 250px; 
+    width: calc(100% - 250px); /* Garante que ocupe o resto da tela perfeitamente */
+    background: #e7ebee; 
+    min-height: 100vh; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column; /* Organiza a topbar em cima e o conteúdo embaixo */
+}
+
+/* ==========================================
+   TOPBAR
+   ========================================== */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px; /* Alinha com o padding do conteúdo */
+    background: #ffffff;
+    height: 70px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Barra de Pesquisa */
+.search-container {
+    display: flex;
+    align-items: center;
+    background: #eeeff5; /* Fundo cinza bem claro */
+    border-radius: 20px; /* Formato pílula */
+    padding: 8px 16px;
+    width: 300px;
+}
+
+.search-container input {
+    border: none;
+    background: transparent;
+    outline: none;
+    margin-left: 10px;
+    width: 100%;
+    color: #333;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.search-container input::placeholder {
+    color: #999;
+}
+
+/* Informações do Usuário */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    background: #3498db; /* O azul claro da imagem */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* Cor do ícone dentro da bolinha */
+}
+
+/* ==========================================
+   CONTEÚDO DAS PÁGINAS
+   ========================================== */
+/* Container que devolve o respiro (padding) que estava no antigo main */
+.conteudo-page {
+    padding: 40px;
+    flex: 1; /* Faz o conteúdo empurrar o rodapé, se houver, lá pra baixo */
+}
+
+.home-card { 
+    /* Cria um degradê na diagonal (135 graus) do seu roxo para um tom levemente mais escuro */
+    background: linear-gradient(135deg, #822fcf 0%, #5830c7 100%); 
+    
+    /* Muda a cor de todo o texto dentro do card para branco para garantir a leitura */
+    color: white; 
+    
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Aumentei levemente a sombra para dar mais destaque */
+}
+
+/* Como o h1 original estava forçando a cor escura (#333), precisamos garantir que o título do card fique branco também */
+.home-card h1, .home-card h3 {
+    color: #ffffff;
+}
+
+.home-card p {
+    color: rgb(220, 220, 220);
+}
+
+.card { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+
+h1 { 
+    color: #333; 
+}
+
+
+/* ==========================================
+   COMPONENTES E TELAS (produtos / clientes)
+   ========================================== */
+.topo-clientes { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px; 
+}
+
+/* Botões */
+.btn-adicionar { 
+    background-color: #111; 
+    color: white; 
+    border: none; 
+    padding: 10px 16px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    transition: 0.3s; 
+    display: inline-block; 
+}
+.btn-adicionar:hover { 
+    background-color: #333; 
+}
+.btn-editar { 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 5px 10px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    margin-right: 5px; 
+    font-size: 14px;
+}
+.btn-excluir { 
+    background-color: #dc3545; 
+    color: white; 
+    border: none; 
+    padding: 5px 10px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 14px;
+}
+
+/* Tabelas */
+#tabela-clientes { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background-color: white; 
+}
+#tabela-clientes th, #tabela-clientes td { 
+    border: 1px solid #ddd; 
+    padding: 12px; 
+    text-align: center; 
+}
+#tabela-clientes th { 
+    background-color: #111; 
+    color: white; 
+}
+#tabela-clientes tr:nth-child(even) { 
+    background-color: #f5f5f5; 
+}
+#tabela-clientes tr:hover { 
+    background-color: #ececec; 
+}
+
+/* Mensagens de Alerta (Django Messages) */
+.alert.error { 
+    background-color: #f44336; 
+}
+.alert.success { 
+    background-color: #4CAF50; 
+}

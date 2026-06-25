@@ -48,4 +48,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'), 
     # permitir o cadastro de um novo usuário
     path('register/', views.register_view, name='register'),
+
+    path('api/busca-global/', views.busca_global, name='busca_global'),
 ]

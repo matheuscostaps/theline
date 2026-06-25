@@ -1,66 +1,89 @@
 {% extends "web/base.html" %}
 
 {% block conteudo %}
-<section class="card">
-    <div class="topo-clientes">
-        <h1>Histórico de Vendas</h1>
-        <a href="?novo=1" class="btn-adicionar" style="text-decoration: none; display: inline-block;">+ Nova Venda</a>
+
+<section class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-divisorBorder">
+    
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+        <h1 class="text-2xl font-bold text-gray">Histórico de Vendas</h1>
+        <a href="?novo=1" 
+           class="bg-secundary text-white px-5 py-2.5 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm">
+            + Nova Venda
+        </a>
     </div>
 
     {% if request.GET.novo %}
-    <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd;">
-        <h3 style="margin-top: 0;">Iniciar Nova Venda</h3>
-        <form method="POST" action="{% url 'criar_venda' %}" style="display: flex; gap: 10px; align-items: center;">
+    <div id="form-container" class="bg-secundaryWhite p-6 rounded-xl mb-8 border border-divisorBorder">
+        <h3 class="text-lg font-bold text-gray mb-4">Iniciar Nova Venda</h3>
+        
+        <form method="POST" action="{% url 'criar_venda' %}" class="flex flex-col sm:flex-row gap-4 items-center w-full">
             {% csrf_token %}
-            <label><strong>Cliente:</strong></label>
-            <select name="cliente_id" required style="padding: 8px; flex: 1; border-radius: 4px;">
-                <option value="">Selecione um cliente...</option>
-                {% for cliente in clientes %}
-                <option value="{{ cliente.id }}">{{ cliente.nome }} (CPF: {{ cliente.cpf }})</option>
-                {% endfor %}
-            </select>
-            <a href="{% url 'vendas' %}" style="padding: 8px 16px; text-decoration: none; color: black; background: #ccc; border-radius: 4px;">Cancelar</a>
-            <button type="submit" class="btn-adicionar">Abrir Caixa</button>
+            
+            <div class="flex items-center gap-3 w-full sm:flex-1">
+                <label class="font-bold text-gray whitespace-nowrap">Cliente:</label>
+                <select name="cliente_id" required class="select select-bordered bg-white w-full focus:border-secundary focus:outline-none">
+                    <option value="" disabled selected>Selecione um cliente...</option>
+                    {% for cliente in clientes %}
+                    <option value="{{ cliente.id }}">{{ cliente.nome }} (CPF: {{ cliente.cpf }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="flex gap-3 w-full sm:w-auto justify-end mt-2 sm:mt-0">
+                <a href="{% url 'vendas' %}" 
+                   class="px-5 py-2.5 bg-divisorBorder text-gray font-medium rounded-lg hover:bg-gray/20 transition-colors text-center">
+                    Cancelar
+                </a>
+                <button type="submit" 
+                        class="bg-secundary text-white px-6 py-2.5 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm">
+                    Abrir Caixa
+                </button>
+            </div>
         </form>
     </div>
     {% endif %}
 
-    <table id="tabela-clientes">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Cliente</th>
-                <th>Data</th>
-                <th>Valor Total</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for venda in vendas %}
-            <tr>
-                <td>#{{ venda.id }}</td>
-                <td>{{ venda.cliente.nome }}</td>
-                <td>{{ venda.data|date:"d/m/Y H:i" }}</td>
-                <td><strong>R$ {{ venda.valor_total }}</strong></td>
-                <td>
-                    <a href="{% url 'detalhes_venda' venda.id %}" class="btn-editar" style="text-decoration: none;">Ver / Adicionar Itens</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5">Nenhuma venda registrada ainda.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="overflow-x-auto">
+        <table class="table w-full border border-divisorBorder">
+            <thead>
+                <tr class="text-gray text-sm uppercase tracking-wider">
+                    <th class="bg-gray text-white border border-divisorBorder py-4">ID</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4">Cliente</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4">Data</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4">Valor Total</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4 text-center">Ações</th>
+                </tr>
+            </thead>
+            
+            <tbody class="text-gray text-sm">
+                {% for venda in vendas %}
+                <tr class="border-b border-divisorBorder bg-white2 hover:bg-itemHover transition-colors">
+                    <td class="text-gray2 py-4 font-medium">#{{ venda.id }}</td>
+                    <td class="text-gray2 py-4">{{ venda.cliente.nome }}</td>
+                    <td class="text-gray2 py-4">{{ venda.data|date:"d/m/Y H:i" }}</td>
+                    <td class="text-gray2 py-4 font-semibold text-secundary">R$ {{ venda.valor_total }}</td>
+                    
+                    <td class="py-2 text-center w-0 px-6">
+                        <div class="flex items-center justify-center">
+                            <div class="px-4 py-2 rounded-md bg-gray whitespace-nowrap">
+                                <a href="{% url 'detalhes_venda' venda.id %}" 
+                                   class="text-base font-medium text-white hover:underline">
+                                    Gerenciar
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-lg py-8 text-gray font-medium bg-secundaryWhite rounded-b-lg">
+                        Nenhuma venda registrada ainda.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </section>
 
-<style>
-.topo-clientes{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.btn-adicionar{ background-color: #111; color: white; border: none; padding: 10px 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-.btn-adicionar:hover{ background-color: #333; }
-#tabela-clientes{ width: 100%; border-collapse: collapse; background-color: white; }
-#tabela-clientes th, #tabela-clientes td{ border: 1px solid #ddd; padding: 12px; text-align: center; }
-#tabela-clientes th{ background-color: #111; color: white; }
-#tabela-clientes tr:nth-child(even){ background-color: #f5f5f5; }
-.btn-editar { background-color: #007bff; color: white; padding: 5px 10px; border-radius: 4px; }
-</style>
 {% endblock %}

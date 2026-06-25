@@ -1,24 +1,31 @@
 {% extends "web/base.html" %}
 
 {% block conteudo %}
-<section class="card">
-    <h1>Relatório de Vendas</h1>
 
-    <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ddd;">
-        <form method="GET" action="{% url 'relatorios' %}" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-                <label><strong>Data Inicial:</strong></label>
-                <input type="date" name="data_inicio" value="{{ filtros.data_inicio }}" style="padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+<section class="bg-white p-6 md:p-8 rounded-xl shadow-sm border border-divisorBorder">
+    
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold text-gray m-0">Relatório de Vendas</h1>
+    </div>
+
+    <div class="bg-secundaryWhite p-6 rounded-xl mb-8 border border-divisorBorder">
+        <form method="GET" action="{% url 'relatorios' %}" class="flex flex-col md:flex-row gap-4 items-end flex-wrap">
+            
+            <div class="flex flex-col gap-2 w-full md:w-auto flex-1 min-w-[150px]">
+                <label class="font-bold text-gray text-sm">Data Inicial:</label>
+                <input type="date" name="data_inicio" value="{{ filtros.data_inicio }}" 
+                       class="input input-bordered bg-white w-full focus:border-secundary focus:outline-none">
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-                <label><strong>Data Final:</strong></label>
-                <input type="date" name="data_fim" value="{{ filtros.data_fim }}" style="padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+            <div class="flex flex-col gap-2 w-full md:w-auto flex-1 min-w-[150px]">
+                <label class="font-bold text-gray text-sm">Data Final:</label>
+                <input type="date" name="data_fim" value="{{ filtros.data_fim }}" 
+                       class="input input-bordered bg-white w-full focus:border-secundary focus:outline-none">
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-                <label><strong>Cliente:</strong></label>
-                <select name="cliente_id" style="padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+            <div class="flex flex-col gap-2 w-full md:w-auto flex-[2] min-w-[200px]">
+                <label class="font-bold text-gray text-sm">Cliente:</label>
+                <select name="cliente_id" class="select select-bordered bg-white w-full focus:border-secundary focus:outline-none">
                     <option value="">Todos os Clientes</option>
                     {% for cliente in clientes %}
                     <option value="{{ cliente.id }}" {% if filtros.cliente_id == cliente.id|stringformat:"i" %}selected{% endif %}>
@@ -28,49 +35,63 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn-adicionar">Filtrar</button>
-            <a href="{% url 'relatorios' %}" style="padding: 8px 16px; background: #666; color: white; text-decoration: none; border-radius: 8px;">Limpar</a>
+            <div class="flex gap-3 w-full md:w-auto justify-end mt-2 md:mt-0">
+                <button type="submit" 
+                        class="bg-secundary text-white px-6 py-3 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm flex-1 md:flex-none text-center">
+                    Filtrar
+                </button>
+                <a href="{% url 'relatorios' %}" 
+                   class="bg-gray text-white px-6 py-3 rounded-lg font-medium hover:bg-gray/90 transition-colors shadow-sm flex-1 md:flex-none text-center">
+                    Limpar
+                </a>
+            </div>
         </form>
     </div>
 
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <p>Mostrando <strong>{{ vendas.count }}</strong> venda(s) encontrada(s).</p>
-        <h2 style="color: #28a745; margin: 0;">Total no Período: R$ {{ total_geral }}</h2>
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2">
+        <p class="text-gray2 text-sm sm:text-base m-0">
+            Mostrando <strong class="text-gray">{{ vendas.count }}</strong> venda(s) encontrada(s).
+        </p>
+        <h2 class="text-xl font-bold text-secundary m-0">Total no Período: R$ {{ total_geral }}</h2>
     </div>
 
-    <table id="tabela-clientes">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Data</th>
-                <th>Cliente</th>
-                <th>Valor Total</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for venda in vendas %}
-            <tr>
-                <td>#{{ venda.id }}</td>
-                <td>{{ venda.data_venda|date:"d/m/Y H:i" }}</td>                
-                <td>{{ venda.cliente.nome }}</td>
-                <td>R$ {{ venda.valor_total }}</td>
-                <td>
-                    <a href="{% url 'detalhes_venda' venda.id %}" class="btn-editar" style="text-decoration: none; background-color: #333;">Ver Detalhes</a>
-                </td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5">Nenhuma venda encontrada para os filtros selecionados.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="overflow-x-auto">
+        <table class="table w-full border border-divisorBorder">
+            <thead>
+                <tr class="text-gray text-sm uppercase tracking-wider">
+                    <th class="bg-gray text-white border border-divisorBorder py-4">ID</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4">Data</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4">Cliente</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4 text-right">Valor Total</th>
+                    <th class="bg-gray text-white border border-divisorBorder py-4 text-center">Ações</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray text-sm">
+                {% for venda in vendas %}
+                <tr class="border-b border-divisorBorder bg-white2 hover:bg-itemHover transition-colors">
+                    <td class="text-gray2 py-4 font-medium">#{{ venda.id }}</td>
+                    <td class="text-gray2 py-4">{{ venda.data_venda|date:"d/m/Y H:i" }}</td>                
+                    <td class="text-gray2 py-4">{{ venda.cliente.nome }}</td>
+                    <td class="text-secundary py-4 text-right font-semibold">R$ {{ venda.valor_total }}</td>
+                    
+                    <td class="py-2 text-center w-0 px-6">
+                        <div class="px-4 py-2 rounded-md bg-gray hover:bg-gray/90 transition-colors whitespace-nowrap inline-block">
+                            <a href="{% url 'detalhes_venda' venda.id %}" class="text-base font-medium text-white hover:underline">
+                                Ver Detalhes
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-lg py-8 text-gray font-medium bg-secundaryWhite rounded-b-lg">
+                        Nenhuma venda encontrada para os filtros selecionados.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </section>
 
-<style>
-.btn-adicionar { background-color: #111; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
-#tabela-clientes { width: 100%; border-collapse: collapse; }
-#tabela-clientes th, #tabela-clientes td { border: 1px solid #ddd; padding: 12px; text-align: center; }
-#tabela-clientes th { background-color: #111; color: white; }
-.btn-editar { color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px; }
-</style>
 {% endblock %}
