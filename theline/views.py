@@ -5,6 +5,7 @@ from django.db.models import ProtectedError
 from django.contrib import messages
 
 from rest_framework import viewsets, status
+from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -18,10 +19,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import ClienteForm, ProdutoForm
+from .serializers import ClienteSerializer, ProdutoSerializer, ItemVendaSerializer, VendaSerializer
+
+from rest_framework.decorators import api_view, action, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from django.http import JsonResponse
 from django.urls import reverse
 from django.db.models import Q
+
+from rest_framework.authentication import SessionAuthentication
 
 # ==========================================
 # VIEWS DE FRONTEND (Páginas HTML)
@@ -29,7 +37,9 @@ from django.db.models import Q
 
 # --- CRUD Clientes ---
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def clientes_view(request):
     clientes = Cliente.objects.all()
     cliente_edit = None
@@ -43,7 +53,9 @@ def clientes_view(request):
         'cliente_edit': cliente_edit
     })
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def criar_cliente(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
@@ -53,7 +65,9 @@ def criar_cliente(request):
 
     return redirect('clientes')
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
@@ -68,7 +82,9 @@ def editar_cliente(request, pk):
 
     return redirect('clientes')
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def excluir_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
@@ -88,7 +104,9 @@ def excluir_cliente(request, pk):
 
 # --- CRUD Produtos ---
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def produtos_view(request):
     produtos = Produto.objects.all()
     produto_edit = None
@@ -103,7 +121,9 @@ def produtos_view(request):
         'produto_edit': produto_edit
     })
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def criar_produto(request):
     if request.method == "POST":
         form = ProdutoForm(request.POST)
@@ -116,7 +136,9 @@ def criar_produto(request):
             
     return redirect('produtos')
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
@@ -141,7 +163,9 @@ def editar_produto(request, pk):
         'produto_edit': produto
     })
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def excluir_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
@@ -161,7 +185,9 @@ def excluir_produto(request, pk):
 
 # --- CRUD Vendas ---
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def vendas_view(request):
     vendas = Venda.objects.all().order_by('-id')
     clientes = Cliente.objects.all()
@@ -171,7 +197,9 @@ def vendas_view(request):
         'clientes': clientes
     })
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def criar_venda(request):
     if request.method == "POST":
         cliente_id = request.POST.get('cliente_id')
@@ -186,7 +214,9 @@ def criar_venda(request):
 
     return redirect('vendas')
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def detalhes_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -202,7 +232,9 @@ def detalhes_venda(request, pk):
         'produtos': produtos
     })
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def adicionar_item_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -239,7 +271,9 @@ def adicionar_item_venda(request, pk):
 
 # --- Relatórios ---
 
-@login_required(login_url='login')
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
 def relatorios_view(request):
     vendas = Venda.objects.all().order_by('-data_venda')
     clientes = Cliente.objects.all()
@@ -429,8 +463,12 @@ def logout_view(request):
   logout(request)
   return redirect('login')
 
+
 # Dashboard protegido
 @login_required(login_url='login')
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication])
+@permission_classes([permissions.IsAuthenticated])
 def dashboard(request):
   
   return render(request, 'web/index.html')
