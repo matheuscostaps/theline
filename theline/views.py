@@ -5,18 +5,13 @@ from django.db.models import ProtectedError
 from django.contrib import messages
 
 from rest_framework import viewsets, status
-<<<<<<< HEAD
-=======
 from rest_framework import permissions
->>>>>>> estilizacao
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Cliente, Produto, Venda, ItemVenda
 from .serializers import ClienteSerializer, ProdutoSerializer, VendaSerializer
 
-<<<<<<< HEAD
-=======
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -35,26 +30,16 @@ from django.urls import reverse
 from django.db.models import Q
 
 from rest_framework.authentication import SessionAuthentication
->>>>>>> estilizacao
 
 # ==========================================
 # VIEWS DE FRONTEND (Páginas HTML)
 # ==========================================
 
-<<<<<<< HEAD
-def dashboard_view(request):
-    return render(request, 'web/index.html')
-
-
-# --- CRUD Clientes (Sem JavaScript) ---
-
-=======
 # --- CRUD Clientes ---
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 @authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def clientes_view(request):
     clientes = Cliente.objects.all()
     cliente_edit = None
@@ -68,25 +53,6 @@ def clientes_view(request):
         'cliente_edit': cliente_edit
     })
 
-<<<<<<< HEAD
-
-def criar_cliente(request):
-    if request.method == "POST":
-        Cliente.objects.create(
-            nome=request.POST.get('nome'),
-            cpf=request.POST.get('cpf'),
-            email=request.POST.get('email'),
-            telefone=request.POST.get('telefone'),
-            endereco=request.POST.get('endereco'),
-        )
-
-    return redirect('clientes')
-
-
-=======
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
 def criar_cliente(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
@@ -96,26 +62,10 @@ def criar_cliente(request):
 
     return redirect('clientes')
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
     if request.method == "POST":
-<<<<<<< HEAD
-        cliente.nome = request.POST.get('nome')
-        cliente.cpf = request.POST.get('cpf')
-        cliente.email = request.POST.get('email')
-        cliente.telefone = request.POST.get('telefone')
-        cliente.endereco = request.POST.get('endereco')
-        cliente.save()
-
-    return redirect('clientes')
-
-
-=======
         form = ClienteForm(
             request.POST,
             instance=cliente
@@ -126,10 +76,6 @@ def editar_cliente(request, pk):
 
     return redirect('clientes')
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def excluir_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
@@ -147,16 +93,11 @@ def excluir_cliente(request, pk):
     return redirect('clientes')
 
 
-<<<<<<< HEAD
-# --- CRUD Produtos (Sem JavaScript) ---
-
-=======
 # --- CRUD Produtos ---
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 @authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def produtos_view(request):
     produtos = Produto.objects.all()
     produto_edit = None
@@ -171,24 +112,6 @@ def produtos_view(request):
         'produto_edit': produto_edit
     })
 
-<<<<<<< HEAD
-
-def criar_produto(request):
-    if request.method == "POST":
-        Produto.objects.create(
-            nome=request.POST.get('nome'),
-            descricao=request.POST.get('descricao', ''),
-            preco=request.POST.get('preco'),
-            quantidade_estoque=request.POST.get('quantidade_estoque'),
-        )
-
-    return redirect('produtos')
-
-
-=======
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
 def criar_produto(request):
     if request.method == "POST":
         form = ProdutoForm(request.POST)
@@ -201,25 +124,11 @@ def criar_produto(request):
             
     return redirect('produtos')
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
+
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
     if request.method == "POST":
-<<<<<<< HEAD
-        produto.nome = request.POST.get('nome')
-        produto.descricao = request.POST.get('descricao', '')
-        produto.preco = request.POST.get('preco')
-        produto.quantidade_estoque = request.POST.get('quantidade_estoque')
-        produto.save()
-
-    return redirect('produtos')
-
-
-=======
         form = ProdutoForm(
             request.POST,
             instance=produto
@@ -240,10 +149,6 @@ def editar_produto(request, pk):
         'produto_edit': produto
     })
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def excluir_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
@@ -263,12 +168,9 @@ def excluir_produto(request, pk):
 
 # --- CRUD Vendas ---
 
-<<<<<<< HEAD
-=======
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
 @authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def vendas_view(request):
     vendas = Venda.objects.all().order_by('-id')
     clientes = Cliente.objects.all()
@@ -278,13 +180,7 @@ def vendas_view(request):
         'clientes': clientes
     })
 
-<<<<<<< HEAD
 
-=======
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def criar_venda(request):
     if request.method == "POST":
         cliente_id = request.POST.get('cliente_id')
@@ -299,13 +195,7 @@ def criar_venda(request):
 
     return redirect('vendas')
 
-<<<<<<< HEAD
 
-=======
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def detalhes_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -320,14 +210,7 @@ def detalhes_venda(request, pk):
         'itens': itens,
         'produtos': produtos
     })
-
-<<<<<<< HEAD
-
-=======
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
+    
 def adicionar_item_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -338,23 +221,13 @@ def adicionar_item_venda(request, pk):
         produto = get_object_or_404(Produto, id=produto_id)
 
         if produto.quantidade_estoque >= quantidade:
-<<<<<<< HEAD
-
-=======
             # Cria o item da venda
->>>>>>> estilizacao
             ItemVenda.objects.create(
                 venda=venda,
                 produto=produto,
                 quantidade=quantidade,
                 preco_unitario=produto.preco
             )
-<<<<<<< HEAD
-
-            # Atualiza estoque
-            produto.quantidade_estoque -= quantidade
-=======
->>>>>>> estilizacao
             produto.save()
 
             # Atualiza total da venda
@@ -367,26 +240,13 @@ def adicionar_item_venda(request, pk):
             venda.save()
 
         else:
-<<<<<<< HEAD
-            messages.error(
-                request,
-                f"Estoque insuficiente para {produto.nome}."
-            )
-=======
             messages.error(request, f"Estoque insuficiente para {produto.nome}.")
->>>>>>> estilizacao
 
     return redirect('detalhes_venda', pk=venda.id)
 
 
 # --- Relatórios ---
 
-<<<<<<< HEAD
-=======
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([SessionAuthentication])
->>>>>>> estilizacao
 def relatorios_view(request):
     vendas = Venda.objects.all().order_by('-data_venda')
     clientes = Cliente.objects.all()
@@ -426,24 +286,18 @@ class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
 
-<<<<<<< HEAD
-=======
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
 
->>>>>>> estilizacao
 
 class ProdutoViewSet(viewsets.ModelViewSet):
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
 
-<<<<<<< HEAD
-=======
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
->>>>>>> estilizacao
     @action(detail=True, methods=['post'])
     def baixar_estoque(self, request, pk=None):
         produto = self.get_object()
@@ -469,12 +323,9 @@ class VendaViewSet(viewsets.ModelViewSet):
     queryset = Venda.objects.all()
     serializer_class = VendaSerializer
 
-<<<<<<< HEAD
-=======
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
->>>>>>> estilizacao
     def create(self, request, *args, **kwargs):
         itens = request.data.get('itens', [])
 
@@ -532,9 +383,6 @@ class VendaViewSet(viewsets.ModelViewSet):
                 many=True
             ).data,
             "mensagem": "Relatório filtrado com sucesso"
-<<<<<<< HEAD
-        })
-=======
         })
 
 # ==========================================
@@ -664,4 +512,3 @@ def busca_global(request):
         })
 
     return JsonResponse({'results': results})
->>>>>>> estilizacao
