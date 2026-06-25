@@ -28,13 +28,15 @@ class VendaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venda
         fields = '__all__'
-
+        read_only_fields = ['valor_total']
+        
     def create(self, validated_data):
         itens_data = validated_data.pop('itens')
 
         # Cria a venda
         venda = Venda.objects.create(**validated_data)
-
+        
+        
         # Percorre os itens da venda
         for item_data in itens_data:
             produto = item_data['produto']
@@ -50,10 +52,6 @@ class VendaSerializer(serializers.ModelSerializer):
 
             # Cria o item da venda
             ItemVenda.objects.create(venda=venda, **item_data)
-
-            # Atualiza estoque
-            produto.quantidade_estoque -= quantidade
-            produto.save()
 
         # Retorna a venda criada
         return venda

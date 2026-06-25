@@ -60,7 +60,7 @@
                 <tr class="border-b border-divisorBorder bg-white2 hover:bg-itemHover transition-colors">
                     <td class="text-gray2 py-4 font-medium">#{{ venda.id }}</td>
                     <td class="text-gray2 py-4">{{ venda.cliente.nome }}</td>
-                    <td class="text-gray2 py-4">{{ venda.data|date:"d/m/Y H:i" }}</td>
+                    <td class="text-gray2 py-4">{{ venda.data_venda|date:"d/m/Y H:i" }}</td>
                     <td class="text-gray2 py-4 font-semibold text-secundary">R$ {{ venda.valor_total }}</td>
                     
                     <td class="py-2 text-center w-0 px-6">

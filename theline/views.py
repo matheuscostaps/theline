@@ -107,10 +107,13 @@ def produtos_view(request):
 def criar_produto(request):
     if request.method == "POST":
         form = ProdutoForm(request.POST)
-
         if form.is_valid():
             form.save()
-
+            messages.success(request, "Produto criado com sucesso!")
+            return redirect('produtos') 
+        else:
+            messages.error(request, "Erro ao criar produto. Verifique os dados.")
+            
     return redirect('produtos')
 
 @login_required(login_url='login')
@@ -125,8 +128,18 @@ def editar_produto(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, "Produto atualizado com sucesso!")
+            return redirect('produtos')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Erro no campo {field}: {error}")
 
-    return redirect('produtos')
+    produtos = Produto.objects.all()
+    return render(request, 'web/produtos.html', {
+        'produtos': produtos,
+        'produto_edit': produto
+    })
 
 @login_required(login_url='login')
 def excluir_produto(request, pk):
@@ -200,16 +213,13 @@ def adicionar_item_venda(request, pk):
         produto = get_object_or_404(Produto, id=produto_id)
 
         if produto.quantidade_estoque >= quantidade:
-
+            # Cria o item da venda
             ItemVenda.objects.create(
                 venda=venda,
                 produto=produto,
                 quantidade=quantidade,
                 preco_unitario=produto.preco
             )
-
-            # Atualiza estoque
-            produto.quantidade_estoque -= quantidade
             produto.save()
 
             # Atualiza total da venda
@@ -222,10 +232,7 @@ def adicionar_item_venda(request, pk):
             venda.save()
 
         else:
-            messages.error(
-                request,
-                f"Estoque insuficiente para {produto.nome}."
-            )
+            messages.error(request, f"Estoque insuficiente para {produto.nome}.")
 
     return redirect('detalhes_venda', pk=venda.id)
 
@@ -376,22 +383,27 @@ class VendaViewSet(viewsets.ModelViewSet):
 # ==========================================
 
 def register_view(request):
-  if request.method == "POST":
-    # Valores informados no cadastro
-    username = request.POST['username']
-    password = request.POST['password']
-    confirm_password = request.POST['confirm_password']
+    if request.method == "POST":
+        # Valores informados no cadastro
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
 
-    if password == confirm_password:
-      # Inclusão no banco de dados do novo usuário
-      user = User.objects.create_user(username=username, password=password)
-      messages.success(request, "Usuário criado com sucesso!")
-      return redirect('login')
-    else:
-      messages.error(request, "As senhas não conferem!")
+        # 1. VERIFICAÇÃO CRUCIAL: O usuário já existe?
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Este nome de usuário já está em uso! Escolha outro.")
+            return render(request, 'web/register.html')
 
-  return render(request, 'web/register.html')
+        # 2. Verifica se as senhas batem
+        if password == confirm_password:
+            # Inclusão no banco de dados do novo usuário
+            User.objects.create_user(username=username, password=password)
+            messages.success(request, "Usuário criado com sucesso!")
+            return redirect('login')
+        else:
+            messages.error(request, "As senhas não conferem!")
 
+    return render(request, 'web/register.html')
 # ==========================================
 # PÁGINA DE LOGIN
 # ==========================================
