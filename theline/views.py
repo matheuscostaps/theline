@@ -484,7 +484,7 @@ def busca_global(request):
 
         results.append({
             'categoria': 'Clientes',
-            'texto': texto_exibicao, # Passa apenas a informação que deu "match"
+            'texto': texto_exibicao,
             'url': reverse('clientes') + f"?busca={c.id}" 
         })
 

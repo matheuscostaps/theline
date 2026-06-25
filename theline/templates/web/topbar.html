@@ -1,7 +1,5 @@
 <div class="flex justify-between items-center w-full">
-
     <div class="relative w-72" id="search-container">
-
         <div
             class="flex items-center bg-white h-10 w-full px-4 py-2 rounded-md border border-divisorBorder focus-within:border-secundary focus-within:ring-1 focus-within:ring-secundary transition-all">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999"
@@ -22,7 +20,6 @@
 
             <ul id="search-results-list" class="flex flex-col max-h-80 overflow-y-auto">
             </ul>
-
         </div>
     </div>
 
@@ -35,14 +32,12 @@
 
             let debounceTimer;
 
-            // Função para buscar dados no Django
             async function fetchSearchResults(query) {
                 if (query.length < 2) {
                     searchDropdown.classList.add('hidden');
                     return;
                 }
 
-                // Mostra o dropdown e o loading
                 searchDropdown.classList.remove('hidden');
                 searchResultsList.innerHTML = '';
                 searchLoading.classList.remove('hidden');
@@ -59,7 +54,6 @@
                 }
             }
 
-            // Função para desenhar o HTML dos resultados
             function renderResults(results) {
                 searchResultsList.innerHTML = '';
 
@@ -71,7 +65,6 @@
                 let currentCategory = '';
 
                 results.forEach(item => {
-                    // Cria os cabeçalhos de categoria (Ex: "Produtos", "Clientes")
                     if (item.categoria !== currentCategory) {
                         currentCategory = item.categoria;
                         const categoryHeader = document.createElement('li');
@@ -80,7 +73,6 @@
                         searchResultsList.appendChild(categoryHeader);
                     }
 
-                    // Cria o item clicável
                     const li = document.createElement('li');
                     li.innerHTML = `
                 <a href="${item.url}" class="flex items-center px-4 py-3 hover:bg-itemHover hover:text-secundary transition-colors text-sm text-gray cursor-pointer border-b border-divisorBorder last:border-0">
@@ -94,7 +86,6 @@
                 });
             }
 
-            // Evento de digitação com "Debounce" (espera 300ms parar de digitar para não sobrecarregar o servidor)
             searchInput.addEventListener('input', function (e) {
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
@@ -102,14 +93,12 @@
                 }, 300);
             });
 
-            // Fecha o dropdown se clicar fora dele
             document.addEventListener('click', function (e) {
                 if (!document.getElementById('search-container').contains(e.target)) {
                     searchDropdown.classList.add('hidden');
                 }
             });
 
-            // Abre o dropdown novamente se clicar no input e já tiver texto
             searchInput.addEventListener('focus', function (e) {
                 if (e.target.value.trim().length >= 2) {
                     searchDropdown.classList.remove('hidden');
