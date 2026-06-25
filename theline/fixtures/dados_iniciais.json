@@ -1,0 +1,117 @@
+[
+    {
+        "model": "theline.cliente",
+        "pk": 1,
+        "fields": {
+            "nome": "Maria Oliveira",
+            "cpf": "123.456.789-00",
+            "email": "maria@email.com",
+            "telefone": "(61) 99999-1111",
+            "endereco": "Rua das Flores, 123"
+        }
+    },
+    {
+        "model": "theline.cliente",
+        "pk": 2,
+        "fields": {
+            "nome": "João Silva",
+            "cpf": "987.654.321-00",
+            "email": "joao@email.com",
+            "telefone": "(61) 99999-2222",
+            "endereco": "Av. Central, 456"
+        }
+    },
+    {
+        "model": "theline.cliente",
+        "pk": 3,
+        "fields": {
+            "nome": "Ana Souza",
+            "cpf": "111.222.333-44",
+            "email": "ana@email.com",
+            "telefone": "(61) 99999-3333",
+            "endereco": "QNN 10 Conjunto B"
+        }
+    },
+
+    {
+        "model": "theline.produto",
+        "pk": 1,
+        "fields": {
+            "nome": "Camiseta Básica Preta",
+            "descricao": "Camiseta de algodão 100%",
+            "preco": "49.90",
+            "quantidade_estoque": 30
+        }
+    },
+    {
+        "model": "theline.produto",
+        "pk": 2,
+        "fields": {
+            "nome": "Calça Jeans Slim",
+            "descricao": "Jeans azul escuro",
+            "preco": "129.90",
+            "quantidade_estoque": 15
+        }
+    },
+    {
+        "model": "theline.produto",
+        "pk": 3,
+        "fields": {
+            "nome": "Jaqueta Jeans",
+            "descricao": "Jaqueta unissex",
+            "preco": "199.90",
+            "quantidade_estoque": 10
+        }
+    },
+    {
+        "model": "theline.produto",
+        "pk": 4,
+        "fields": {
+            "nome": "Vestido Floral",
+            "descricao": "Vestido casual estampado",
+            "preco": "149.90",
+            "quantidade_estoque": 12
+        }
+    },
+    {
+        "model": "theline.produto",
+        "pk": 5,
+        "fields": {
+            "nome": "Tênis Casual Branco",
+            "descricao": "Tênis confortável para uso diário",
+            "preco": "179.90",
+            "quantidade_estoque": 20
+        }
+    },
+
+    {
+        "model": "theline.venda",
+        "pk": 1,
+        "fields": {
+            "data_venda": "2026-06-24T14:00:00Z",
+            "valor_total": "179.80",
+            "cliente": 1
+        }
+    },
+
+    {
+        "model": "theline.itemvenda",
+        "pk": 1,
+        "fields": {
+            "venda": 1,
+            "produto": 1,
+            "quantidade": 2,
+            "preco_unitario": "49.90"
+        }
+    },
+    {
+        "model": "theline.itemvenda",
+        "pk": 2,
+        "fields": {
+            "venda": 1,
+            "produto": 5,
+            "quantidade": 1,
+            "preco_unitario": "79.90"
+        }
+    }
+]

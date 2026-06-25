@@ -1,0 +1,69 @@
+{% extends 'web/base.html' %}
+
+{% block conteudo %}
+<div class="text-center">
+    <h2 class="text-secundary text-4xl font-bold">THE LINE</h2>
+    <p class="text-gray2 text-base">Reinventando a moda</p>
+</div>
+
+<div class="flex items-center justify-center h-[90%] min-h-[70vh]">
+    <div class="bg-white p-8 md:p-10 rounded-xl shadow-sm border border-divisorBorder w-full max-w-md">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray mb-2">Criar nova conta</h2>
+            <p class="text-gray2 text-sm">Preencha os dados abaixo para se registrar</p>
+        </div>
+
+        {% if messages %}
+        <div class="mb-6 flex flex-col gap-2">
+            {% for message in messages %}
+            <div class="p-3 rounded-lg text-sm text-white font-medium text-center 
+                        {% if 'error' in message.tags %}bg-red{% else %}bg-gray{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" class="flex flex-col gap-4">
+            {% csrf_token %}
+            
+            <div class="form-control w-full">
+                <label class="label px-0 pt-0 pb-1">
+                    <span class="label-text font-bold text-gray">Usuário</span>
+                </label>
+                <input type="text" name="username" placeholder="Escolha um nome de usuário" required 
+                       class="input input-bordered bg-white w-full focus:border-secundary focus:outline-none">
+            </div>
+
+            <div class="form-control w-full">
+                <label class="label px-0 pt-0 pb-1">
+                    <span class="label-text font-bold text-gray">Senha</span>
+                </label>
+                <input type="password" name="password" placeholder="••••••••" required 
+                       class="input input-bordered bg-white w-full focus:border-secundary focus:outline-none">
+            </div>
+
+            <div class="form-control w-full">
+                <label class="label px-0 pt-0 pb-1">
+                    <span class="label-text font-bold text-gray">Confirme a Senha</span>
+                </label>
+                <input type="password" name="confirm_password" placeholder="••••••••" required 
+                       class="input input-bordered bg-white w-full focus:border-secundary focus:outline-none">
+            </div>
+
+            <button type="submit" 
+                    class="w-full bg-secundary text-white mt-4 px-6 py-3 rounded-lg font-medium hover:bg-secundary/90 transition-colors shadow-sm">
+                Registrar
+            </button>
+        </form>
+
+        <div class="mt-8 text-center text-sm text-gray2">
+            Já tem conta? 
+            <a href="{% url 'login' %}" class="text-secundary font-bold hover:underline transition-colors">
+                Faça login
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

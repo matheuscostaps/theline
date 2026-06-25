@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pt-br">
+=======
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="light">
+>>>>>>> estilizacao
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Line - {% block title %}Dashboard{% endblock %}</title>
+<<<<<<< HEAD
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; }  
         
@@ -36,5 +44,38 @@
     </main>
 
     
+=======
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{% static 'js/tailwind-config.js' %}"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="flex flex-col h-screen overflow-hidden font-['Segoe_UI',_Tahoma,_Geneva,_Verdana,_sans-serif] bg-background">
+    <div class="flex flex-1 overflow-hidden">
+        {% if user.is_authenticated %}
+        <nav class="flex-none items-center w-64 bg-primary border-r border-divisorBorder overflow-y-auto">
+            {% include 'web/menu.html' %}
+        </nav>
+        {% endif %}
+
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            {% if user.is_authenticated %}
+            <header class="flex-none flex justify-between items-center px-10 h-[70px] border-b border-divisorBorder box-border">
+                {% include 'web/topbar.html' %}
+            </header>
+            {% endif %}
+
+            <div class="p-10 flex-1">
+                {% block conteudo %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <footer class="flex-none w-full text-center p-3 text-sm text-gray-500 border-t border-divisorBorder bg-background z-10">
+        <p>&copy; {% now "Y" %} The Line. Todos os direitos reservados.</p>
+    </footer>
+>>>>>>> estilizacao
 </body>
 </html>

@@ -5,23 +5,56 @@ from django.db.models import ProtectedError
 from django.contrib import messages
 
 from rest_framework import viewsets, status
+<<<<<<< HEAD
+=======
+from rest_framework import permissions
+>>>>>>> estilizacao
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Cliente, Produto, Venda, ItemVenda
 from .serializers import ClienteSerializer, ProdutoSerializer, VendaSerializer
 
+<<<<<<< HEAD
+=======
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .forms import ClienteForm, ProdutoForm
+from .serializers import ClienteSerializer, ProdutoSerializer, ItemVendaSerializer, VendaSerializer
+
+from rest_framework.decorators import api_view, action, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from django.http import JsonResponse
+from django.urls import reverse
+from django.db.models import Q
+
+from rest_framework.authentication import SessionAuthentication
+>>>>>>> estilizacao
 
 # ==========================================
 # VIEWS DE FRONTEND (Páginas HTML)
 # ==========================================
 
+<<<<<<< HEAD
 def dashboard_view(request):
     return render(request, 'web/index.html')
 
 
 # --- CRUD Clientes (Sem JavaScript) ---
 
+=======
+# --- CRUD Clientes ---
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def clientes_view(request):
     clientes = Cliente.objects.all()
     cliente_edit = None
@@ -35,6 +68,7 @@ def clientes_view(request):
         'cliente_edit': cliente_edit
     })
 
+<<<<<<< HEAD
 
 def criar_cliente(request):
     if request.method == "POST":
@@ -49,10 +83,28 @@ def criar_cliente(request):
     return redirect('clientes')
 
 
+=======
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+def criar_cliente(request):
+    if request.method == "POST":
+        form = ClienteForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+    return redirect('clientes')
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def editar_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
     if request.method == "POST":
+<<<<<<< HEAD
         cliente.nome = request.POST.get('nome')
         cliente.cpf = request.POST.get('cpf')
         cliente.email = request.POST.get('email')
@@ -63,6 +115,21 @@ def editar_cliente(request, pk):
     return redirect('clientes')
 
 
+=======
+        form = ClienteForm(
+            request.POST,
+            instance=cliente
+        )
+
+        if form.is_valid():
+            form.save()
+
+    return redirect('clientes')
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def excluir_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
 
@@ -80,8 +147,16 @@ def excluir_cliente(request, pk):
     return redirect('clientes')
 
 
+<<<<<<< HEAD
 # --- CRUD Produtos (Sem JavaScript) ---
 
+=======
+# --- CRUD Produtos ---
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def produtos_view(request):
     produtos = Produto.objects.all()
     produto_edit = None
@@ -96,6 +171,7 @@ def produtos_view(request):
         'produto_edit': produto_edit
     })
 
+<<<<<<< HEAD
 
 def criar_produto(request):
     if request.method == "POST":
@@ -109,10 +185,31 @@ def criar_produto(request):
     return redirect('produtos')
 
 
+=======
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+def criar_produto(request):
+    if request.method == "POST":
+        form = ProdutoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Produto criado com sucesso!")
+            return redirect('produtos') 
+        else:
+            messages.error(request, "Erro ao criar produto. Verifique os dados.")
+            
+    return redirect('produtos')
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def editar_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
     if request.method == "POST":
+<<<<<<< HEAD
         produto.nome = request.POST.get('nome')
         produto.descricao = request.POST.get('descricao', '')
         produto.preco = request.POST.get('preco')
@@ -122,6 +219,31 @@ def editar_produto(request, pk):
     return redirect('produtos')
 
 
+=======
+        form = ProdutoForm(
+            request.POST,
+            instance=produto
+        )
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Produto atualizado com sucesso!")
+            return redirect('produtos')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Erro no campo {field}: {error}")
+
+    produtos = Produto.objects.all()
+    return render(request, 'web/produtos.html', {
+        'produtos': produtos,
+        'produto_edit': produto
+    })
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def excluir_produto(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
 
@@ -141,6 +263,12 @@ def excluir_produto(request, pk):
 
 # --- CRUD Vendas ---
 
+<<<<<<< HEAD
+=======
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def vendas_view(request):
     vendas = Venda.objects.all().order_by('-id')
     clientes = Cliente.objects.all()
@@ -150,7 +278,13 @@ def vendas_view(request):
         'clientes': clientes
     })
 
+<<<<<<< HEAD
 
+=======
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def criar_venda(request):
     if request.method == "POST":
         cliente_id = request.POST.get('cliente_id')
@@ -165,7 +299,13 @@ def criar_venda(request):
 
     return redirect('vendas')
 
+<<<<<<< HEAD
 
+=======
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def detalhes_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -181,7 +321,13 @@ def detalhes_venda(request, pk):
         'produtos': produtos
     })
 
+<<<<<<< HEAD
 
+=======
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def adicionar_item_venda(request, pk):
     venda = get_object_or_404(Venda, pk=pk)
 
@@ -192,16 +338,23 @@ def adicionar_item_venda(request, pk):
         produto = get_object_or_404(Produto, id=produto_id)
 
         if produto.quantidade_estoque >= quantidade:
+<<<<<<< HEAD
 
+=======
+            # Cria o item da venda
+>>>>>>> estilizacao
             ItemVenda.objects.create(
                 venda=venda,
                 produto=produto,
                 quantidade=quantidade,
                 preco_unitario=produto.preco
             )
+<<<<<<< HEAD
 
             # Atualiza estoque
             produto.quantidade_estoque -= quantidade
+=======
+>>>>>>> estilizacao
             produto.save()
 
             # Atualiza total da venda
@@ -214,16 +367,26 @@ def adicionar_item_venda(request, pk):
             venda.save()
 
         else:
+<<<<<<< HEAD
             messages.error(
                 request,
                 f"Estoque insuficiente para {produto.nome}."
             )
+=======
+            messages.error(request, f"Estoque insuficiente para {produto.nome}.")
+>>>>>>> estilizacao
 
     return redirect('detalhes_venda', pk=venda.id)
 
 
 # --- Relatórios ---
 
+<<<<<<< HEAD
+=======
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([SessionAuthentication])
+>>>>>>> estilizacao
 def relatorios_view(request):
     vendas = Venda.objects.all().order_by('-data_venda')
     clientes = Cliente.objects.all()
@@ -263,11 +426,24 @@ class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
 
+<<<<<<< HEAD
+=======
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+>>>>>>> estilizacao
 
 class ProdutoViewSet(viewsets.ModelViewSet):
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
 
+<<<<<<< HEAD
+=======
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+>>>>>>> estilizacao
     @action(detail=True, methods=['post'])
     def baixar_estoque(self, request, pk=None):
         produto = self.get_object()
@@ -293,6 +469,12 @@ class VendaViewSet(viewsets.ModelViewSet):
     queryset = Venda.objects.all()
     serializer_class = VendaSerializer
 
+<<<<<<< HEAD
+=======
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+>>>>>>> estilizacao
     def create(self, request, *args, **kwargs):
         itens = request.data.get('itens', [])
 
@@ -350,4 +532,136 @@ class VendaViewSet(viewsets.ModelViewSet):
                 many=True
             ).data,
             "mensagem": "Relatório filtrado com sucesso"
+<<<<<<< HEAD
         })
+=======
+        })
+
+# ==========================================
+# PÁGINA DE REGISTRO
+# ==========================================
+
+def register_view(request):
+    if request.method == "POST":
+        # Valores informados no cadastro
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # 1. VERIFICAÇÃO CRUCIAL: O usuário já existe?
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Este nome de usuário já está em uso! Escolha outro.")
+            return render(request, 'web/register.html')
+
+        # 2. Verifica se as senhas batem
+        if password == confirm_password:
+            # Inclusão no banco de dados do novo usuário
+            User.objects.create_user(username=username, password=password)
+            messages.success(request, "Usuário criado com sucesso!")
+            return redirect('login')
+        else:
+            messages.error(request, "As senhas não conferem!")
+
+    return render(request, 'web/register.html')
+# ==========================================
+# PÁGINA DE LOGIN
+# ==========================================
+
+def login_view(request):
+  if request.method == "POST":
+    username = request.POST['username']
+    password = request.POST['password']
+    # Método para verificar as credenciais
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+      login(request, user) # cria a sessão
+      return redirect('dashboard')
+    else:
+      messages.error(request, "Usuário ou senha inválidos!")
+  return render(request, 'web/login.html')
+
+# ==========================================
+# PÁGINA DE LOGOUT
+# ==========================================
+
+def logout_view(request):
+  logout(request)
+  return redirect('login')
+
+
+# Dashboard protegido
+@login_required(login_url='login')
+@api_view(['GET'])
+@authentication_classes([SessionAuthentication])
+@permission_classes([permissions.IsAuthenticated])
+def dashboard(request):
+  
+  return render(request, 'web/index.html')
+
+# ==========================================
+# BUSCA DINAMICA
+# ==========================================
+
+def busca_global(request):
+    query = request.GET.get('q', '').strip()
+    
+    if not query:
+        return JsonResponse({'results': []})
+
+    results = []
+    query_lower = query.lower()
+
+    if 'prod' in query_lower:
+        results.append({
+            'categoria': 'Páginas',
+            'texto': 'Gerenciar Produtos',
+            'url': reverse('produtos')
+        })
+    if 'cli' in query_lower:
+        results.append({
+            'categoria': 'Páginas',
+            'texto': 'Gerenciar Clientes',
+            'url': reverse('clientes')
+        })
+    if 'vend' in query_lower:
+        results.append({
+            'categoria': 'Páginas',
+            'texto': 'Histórico de Vendas',
+            'url': reverse('vendas')
+        })
+    
+    produtos = Produto.objects.filter(nome__icontains=query)[:4]
+    for p in produtos:
+        results.append({
+            'categoria': 'Produtos',
+            'texto': f"{p.nome} (R$ {p.preco})",
+            'url': reverse('produtos') + f"?busca={p.id}"
+        })
+
+    clientes = Cliente.objects.filter(
+        Q(nome__icontains=query) | 
+        Q(email__icontains=query) | 
+        Q(telefone__icontains=query) | 
+        Q(endereco__icontains=query)
+    )[:4]
+
+    for c in clientes:
+        texto_exibicao = c.nome
+        
+        if c.nome and query_lower in c.nome.lower():
+            texto_exibicao = c.nome
+        elif c.email and query_lower in c.email.lower():
+            texto_exibicao = c.email
+        elif c.telefone and query_lower in str(c.telefone).lower():
+            texto_exibicao = str(c.telefone)
+        elif c.endereco and query_lower in c.endereco.lower():
+            texto_exibicao = c.endereco
+
+        results.append({
+            'categoria': 'Clientes',
+            'texto': texto_exibicao,
+            'url': reverse('clientes') + f"?busca={c.id}" 
+        })
+
+    return JsonResponse({'results': results})
+>>>>>>> estilizacao

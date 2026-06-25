@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h2>THE LINE</h2>
 <ul>
     <li><a href="{% url 'dashboard' %}">Home</a></li>
@@ -5,4 +6,46 @@
     <li><a href="{% url 'clientes' %}">Clientes</a></li>
     <li><a href="{% url 'vendas' %}">Vendas</a></li>
     <li><a href="{% url 'relatorios' %}">Relatórios</a></li>
+=======
+<div class="text-center py-4 border-b border-divisorBorder">
+    <h2 class="text-secundary text-2xl font-bold">THE LINE</h2>
+    <p class="text-gray2 text-sm">Reinventando a moda</p>
+</div>
+
+<ul class="flex flex-col gap-1 px-4 pt-4"> 
+    <li>
+        <a href="{% url 'dashboard' %}" class="menu-link {% if request.resolver_match.url_name == 'dashboard' %}menu-link-active{% endif %}">
+            {% include 'web/icons/home.svg' %}
+            <span>Home</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="{% url 'produtos' %}" class="menu-link {% if request.resolver_match.url_name == 'produtos' %}menu-link-active{% endif %}">
+            {% include 'web/icons/produtos.svg' %}
+            <span>Produtos</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="{% url 'clientes' %}" class="menu-link {% if request.resolver_match.url_name == 'clientes' %}menu-link-active{% endif %}">
+            {% include 'web/icons/clientes.svg' %}
+            <span>Clientes</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="{% url 'vendas' %}" class="menu-link {% if request.resolver_match.url_name == 'vendas' %}menu-link-active{% endif %}">
+            {% include 'web/icons/vendas.svg' %}
+            <span>Vendas</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="{% url 'relatorios' %}" class="menu-link {% if request.resolver_match.url_name == 'relatorios' %}menu-link-active{% endif %}">
+            {% include 'web/icons/relatorios.svg' %}
+            <span>Relatórios</span>
+        </a>
+    </li>
+>>>>>>> estilizacao
 </ul>

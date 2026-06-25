@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+<<<<<<< HEAD
 
 # Certifique-se de que a importação do views aponta para o local correto
 # Se este urls.py estiver no mesmo diretório do views.py, use:
@@ -8,6 +9,12 @@ from . import views
 # Se este arquivo for o core/urls.py e o views estiver no app 'theline', use:
 # from theline import views
 
+=======
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+from . import views
+
+>>>>>>> estilizacao
 # ==========================================
 # CONFIGURAÇÃO DA API
 # ==========================================
@@ -20,8 +27,14 @@ router.register(r'vendas', views.VendaViewSet)
 # ROTAS GERAIS
 # ==========================================
 urlpatterns = [
+<<<<<<< HEAD
     # Páginas (Frontend)
     path('', views.dashboard_view, name='dashboard'),
+=======
+    path('', views.dashboard, name='dashboard'),
+
+    # Páginas (Frontend)
+>>>>>>> estilizacao
     path('produtos/', views.produtos_view, name='produtos'),
     path('vendas/', views.vendas_view, name='vendas'),
 
@@ -45,4 +58,19 @@ urlpatterns = [
     path('relatorios/', views.relatorios_view, name='relatorios'),
     # Rotas da API (Retornam JSON)
     path('api/', include(router.urls)),
+<<<<<<< HEAD
+=======
+
+    # permitir o fluxo de login
+    path('login/', views.login_view, name='login'),
+    # permitir o fluxo de login
+    path('logout/', views.logout_view, name='logout'), 
+    # permitir o cadastro de um novo usuário
+    path('register/', views.register_view, name='register'),
+
+    path('api/busca-global/', views.busca_global, name='busca_global'),
+    
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+>>>>>>> estilizacao
 ]

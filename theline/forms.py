@@ -1,5 +1,9 @@
 from django import forms
+<<<<<<< HEAD
 from .models import Cliente
+=======
+from .models import Cliente, Produto
+>>>>>>> estilizacao
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -12,4 +16,14 @@ class ClienteForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'email@exemplo.com'}),
             'telefone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '(00) 00000-0000'}),
             'endereco': forms.Textarea(attrs={'class': 'form-control', 'rows': 2, 'placeholder': 'Rua, Número, Cidade'}),
+<<<<<<< HEAD
         }
+=======
+        }
+
+class ProdutoForm(forms.ModelForm):
+    class Meta:
+        model = Produto
+        fields = ['nome', 'descricao', 'preco', 'quantidade_estoque']
+
+>>>>>>> estilizacao

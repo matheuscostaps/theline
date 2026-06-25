@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-8)kges&pm^$ctwk!ivpyi&1!$pc!eyv8k32w44=4_+cxh0#ofe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = []
+=======
+ALLOWED_HOSTS = ['*']
+>>>>>>> estilizacao
 
 
 # Application definition
@@ -37,8 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'rest_framework',
     'theline',
+=======
+    'rest_framework_simplejwt',
+    'rest_framework',
+    'theline',
+    'tailwind',
+>>>>>>> estilizacao
 ]
 
 MIDDLEWARE = [
@@ -121,3 +132,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+<<<<<<< HEAD
+=======
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+>>>>>>> estilizacao
