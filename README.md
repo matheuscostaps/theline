@@ -144,4 +144,5 @@ Projeto desenvolvido por:
 * [**Matheus Costa Pessanha**](https://github.com/matheuscostaps)
 * [**Tais Döring Freire da Silva**](https://github.com/TaisDF)
 * [**Geovana Rodrigues Paz Cruz**](https://github.com/geovanards)
-* [**Alysson Kennedy Oliveira de Carvalho**](https://github.com/AlyssonKennedy744)
+* [**Alysson Kennedy Oliveira de Carvalho - 1**](https://github.com/AlyssonKennedy744)
+* [**Alysson Kennedy Oliveira de Carvalho - 2**](https://github.com/AlyssonKe)
