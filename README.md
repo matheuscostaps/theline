@@ -3,14 +3,13 @@
 
 ## 📌 Sobre o Projeto
 
-Este projeto consiste no desenvolvimento de um **Sistema de Gestão Comercial (SGC)** aplicado a um contexto real de comércio eletrônico. O sistema foi projetado para atender às necessidades da **The Line**, uma empresa B2C especializada na venda de roupas e acessórios de moda para todo o Brasil.
+Este projeto consiste no desenvolvimento de um **Sistema de Gestão Comercial (SGC)** aplicado a um contexto real de comércio eletrônico. O sistema foi projetado para atender às necessidades da **The Line**, uma empresa especializada na venda de roupas e acessórios de moda para todo o Brasil.
 
 A plataforma tem como objetivo oferecer uma gestão eficiente integrando as áreas de:
 
 * **Diretoria:** Visão estratégica e relatórios consolidados de vendas.
 * **Catálogo e Produtos:** Gestão de estoque, preços e cadastro de peças.
 * **Vendas:** Registro de pedidos e atualização automática de estoque.
-* **Marketing:** Acesso aos dados de clientes para campanhas promocionais.
 
 ---
 
@@ -21,7 +20,7 @@ O sistema foi desenvolvido seguindo uma **Arquitetura em Camadas (App Único)** 
 * **Backend:** Django (Python)
 * **API:** Django REST Framework (DRF)
 * **Comunicação:** API REST (JSON)
-* **Banco de Dados:** MySQL
+* **Banco de Dados:** SQLite 3
 
 ---
 
@@ -37,8 +36,7 @@ O sistema utiliza exceções customizadas e capturas globais para garantir que a
 
 ### 📊 Integridade de Dados
 
-* **Atomic Transactions:** O registro da venda e a baixa do estoque ocorrem dentro de uma transação atômica. Se um falhar, o outro não é executado, evitando dados inconsistentes.
-* **Proteção de Deleção (Integridade Referencial):** Clientes e produtos vinculados ao histórico de vendas estão protegidos contra exclusão (usando `models.PROTECT`).
+* **Proteção de Deleção (Integridade Referencial):** Clientes e produtos vinculados ao histórico de vendas estão protegidos com JWT.
 
 ---
 
@@ -47,7 +45,7 @@ O sistema utiliza exceções customizadas e capturas globais para garantir que a
 * **👤 Gestão de Clientes:** Cadastro, validação de CPF/E-mail e histórico de vínculos.
 * **📦 Gestão de Produtos:** Cadastro, controle rigoroso de estoque e gestão de preços.
 * **🛒 Registro de Vendas:** Registro de pedidos via API, cálculo automático de valor total e baixa instantânea de estoque.
-* **📈 Relatórios Gerenciais:** Endpoint exclusivo que consolida dados e calcula automatiamente o *Faturamento Total*, *Ticket Médio* e *Quantidade de Vendas*.
+* **📈 Relatórios Gerenciais:** Endpoint exclusivo que consolida dados e calcula automatiamente *cliente*, *produtos* e e *Quantidade de Vendas*.
 
 ---
 
@@ -96,25 +94,16 @@ pip install -r requirements.txt
 **5️⃣ Executar as Migrações**
 
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 
 ```
 
-**6️⃣ Executar os Testes Automatizados**
-*(Para validar a integridade da API, controle de estoque e cálculos de relatórios)*
-
-```bash
-python manage.py test
-
-```
-
-**7️⃣ Iniciar o Servidor**
+**6️⃣ Iniciar o Servidor**
 
 ```bash
 python manage.py runserver
-
 ```
+
 
 🌐 **Acesso:** Com o servidor iniciado, acesse `http://127.0.0.1:8000/`
 
@@ -143,14 +132,8 @@ Este roteiro demonstra o funcionamento completo do sistema e a integração das 
 
 ### 4️⃣ Demonstrar o Relatório de Vendas
 
-* **Acesse:** `/api/vendas/relatorio/`
+* **Acesse:** `/api/vendas/relatorios/`
 * **Objetivo:** Mostrar os agregadores gerenciais calculados em tempo real pelo banco de dados.
-
-### 5️⃣ Deletar Venda (Cancelamento)
-
-* **Acesse:** `/api/vendas/1/` *(Onde '1' é o ID da venda)*
-* **Método:** `DELETE`
-* **Objetivo:** Remover uma venda específica pelo seu ID. A venda deixa de aparecer na listagem geral.
 
 ---
 
@@ -158,7 +141,7 @@ Este roteiro demonstra o funcionamento completo do sistema e a integração das 
 
 Projeto desenvolvido por:
 
-* **Matheus Costa Pessanha** - [GitHub: matheuscostaps](https://www.google.com/search?q=https://github.com/matheuscostaps)
-* **Tais Döring** - [GitHub: TaisDF](https://www.google.com/search?q=https://github.com/TaisDF)
-* **Geovana Rodrigues** - [GitHub: geovanards](https://www.google.com/search?q=https://github.com/geovanards)
-* **Alysson Kennedy** - [GitHub: AlyssonKennedy744](https://www.google.com/search?q=https://github.com/AlyssonKennedy744)
+* [**Matheus Costa Pessanha**](https://www.google.com/search?q=https://github.com/matheuscostaps)
+* [**Tais Döring Freire da Silva**](https://www.google.com/search?q=https://github.com/TaisDF)
+* [**Geovana Rodrigues Paz Cruz**](https://www.google.com/search?q=https://github.com/geovanards)
+* [**Alysson Kennedy Oliveira de Carvalho**](https://www.google.com/search?q=https://github.com/AlyssonKennedy744)
