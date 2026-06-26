@@ -141,7 +141,7 @@ Este roteiro demonstra o funcionamento completo do sistema e a integração das 
 
 Projeto desenvolvido por:
 
-* [**Matheus Costa Pessanha**](https://www.google.com/search?q=https://github.com/matheuscostaps)
-* [**Tais Döring Freire da Silva**](https://www.google.com/search?q=https://github.com/TaisDF)
-* [**Geovana Rodrigues Paz Cruz**](https://www.google.com/search?q=https://github.com/geovanards)
-* [**Alysson Kennedy Oliveira de Carvalho**](https://www.google.com/search?q=https://github.com/AlyssonKennedy744)
+* [**Matheus Costa Pessanha**](https://github.com/matheuscostaps)
+* [**Tais Döring Freire da Silva**](https://github.com/TaisDF)
+* [**Geovana Rodrigues Paz Cruz**](https://github.com/geovanards)
+* [**Alysson Kennedy Oliveira de Carvalho**](https://github.com/AlyssonKennedy744)
